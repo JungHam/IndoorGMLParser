@@ -12,15 +12,20 @@ using namespace tinyxml2;
 
 
 
+/*
 XMLNode* getPolygon(XMLNode* xmlparent) {
-
+XMLNode* result;
+return result;
 }
 
 XMLNode* getGeometry(XMLNode* xmlparent) {
-	
-	XMLNode* exterior = xmlparent->FirstChildElement("gml:exterior");
 
+XMLNode* exterior = xmlparent->FirstChildElement("gml:exterior");
+XMLNode* result;
+return result;
 }
+
+*/
 
 int main()
 {
@@ -48,7 +53,7 @@ int main()
 		XMLElement* cellspace = cellSpaceMember->FirstChildElement("core:CellSpace");
 		cout << cellspace->Attribute("gml:id") << endl;
 		cellspacelist.insert(make_pair(cellspace->Attribute("gml:id"),cellspace));
-		cellspaceGeometryList.insert());
+		//cellspaceGeometryList.insert();
 		cellSpaceMember = cellSpaceMember->NextSiblingElement("core:cellSpaceMember");
 	}
 

@@ -1,3 +1,10 @@
-﻿  IndoorGMLParser.cpp
-  IndoorGMLParser.vcxproj -> D:\Documents\Visual Studio 2015\Projects\IndoorGMLParser\Debug\IndoorGMLParser.exe
-  IndoorGMLParser.vcxproj -> D:\Documents\Visual Studio 2015\Projects\IndoorGMLParser\Debug\IndoorGMLParser.pdb (Full PDB)
+﻿  stdafx.cpp
+  polygon.cpp
+  linearring.cpp
+  IndoorGMLParser.cpp
+  geometrymanager.cpp
+  AbstractFeatures.cpp
+  tinyxml2.cpp
+  Generating Code...
+  IndoorGMLParser.vcxproj -> D:\git\IndoorGMLParser\Debug\IndoorGMLParser.exe
+  IndoorGMLParser.vcxproj -> D:\git\IndoorGMLParser\Debug\IndoorGMLParser.pdb (Full PDB)
