@@ -21,11 +21,11 @@ namespace indoorgml {
 		bool hasExterior();
 		bool hasInterior();
 		const Solid& getExterior() const;
-		Solid& getExterior();
-		vector<Surface&> getInterior();
+		vector<shared_ptr<Surface>> getExterior();
+		std::vector<std::shared_ptr<Solid>> getInterior();
 		void addInterior(std::shared_ptr<Solid>);
 		//void deleteInterior();
-		void setExterior(std::shared_ptr<Surface>);
+		void setExterior(vector<std::shared_ptr<Surface>>);
 		void finish(bool optimize, std::shared_ptr<Logger> logger);
 		Solid(const std::string& id);
 		~Solid();

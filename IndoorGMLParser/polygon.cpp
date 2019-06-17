@@ -11,7 +11,6 @@ namespace indoorgml {
 
 	Polygon::Polygon(const std::string& id, std::shared_ptr<Logger> logger) : AbstractFeatures(id), m_negNormal(false)
 	{
-		m_logger = logger;
 		m_finished = false;
 	}
 
