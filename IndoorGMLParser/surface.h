@@ -12,6 +12,7 @@ namespace indoorgml {
 		friend class IndoorGMLFactory;
 	public:
 
+		/*
 		bool hasExterior();
 		bool hasInterior();
 		const Polygon& getExterior() const;
@@ -20,9 +21,10 @@ namespace indoorgml {
 		void addInterior(std::shared_ptr<Polygon>);
 		//void deleteInterior();
 		void setExterior(std::shared_ptr<Polygon>);
-		void finish(bool optimize, std::shared_ptr<Logger> logger);
+		void finish(bool optimize);
 		Surface(const std::string& id);
 		~Surface();
+		*/
 
 
 	protected:

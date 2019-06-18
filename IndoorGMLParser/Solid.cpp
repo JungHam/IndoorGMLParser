@@ -21,8 +21,7 @@ namespace indoorgml {
 			return true;
 		}
 	}
-	const Solid& Solid::getExterior() const {	
-	}
+	//const Solid& Solid::getExterior() const {	}
 	vector<shared_ptr<Surface>> Solid::getExterior() {
 		return exterior;
 	}
