@@ -6,6 +6,8 @@
 #include <iostream>
 #include <map>
 #include <vector>
+#include <string>
+#include <algorithm>
 
 #include "xercesc/parsers/XercesDOMParser.hpp"
 #include "xercesc/dom/DOM.hpp"
@@ -29,7 +31,75 @@ return result;
 }
 
 */
+bool isTextNode(DOMNode* node) {
+	return (node->getNodeType() == DOMNode::TEXT_NODE);
+}
+bool isMatchedNodeName(DOMNode* node, string nodeType) {
+	return(!strcmp(XMLString::transcode(node->getNodeName()), nodeType.c_str()));
+}
+string changeXMLCh2str(const XMLCh* x) {
+	return XMLString::transcode(x);
+}
+string getNamedAttribute(DOMNamedNodeMap* list, string s) {
+	string result;
+	for (int j = 0; j < list->getLength(); j++) {
+		if (isTextNode(list->item(j))) {
+			continue;
+		}
+		if (isMatchedNodeName(list->item(j), s.c_str())) {
+			result = changeXMLCh2str(list->item(j)->getNodeValue());
+			cout << result << endl;
+			break;
+		}
+	}
+	return result;
+}
+DOMNode* getNamedNode(DOMNodeList* list, string s) {
+	DOMNode* result = 0;
+	for (int i = 0; i < list->getLength(); i++) {
+		if (!isTextNode(list->item(i))) {
+			if (isMatchedNodeName(list->item(i), s)) {
+				result = list->item(i);
+				break;
+			}
+		}
+	}
+	return result;
+}
 
+vector<DOMNode*> getNamedNodes(DOMNodeList* list, string s) {
+	vector<DOMNode*>result;
+	for (int i = 0; i < list->getLength(); i++) {
+		if (!isTextNode(list->item(i))) {
+			if (isMatchedNodeName(list->item(i), s)) {
+				result.push_back(list->item(i));
+				
+			}
+		}
+	}
+	return result;
+}
+
+vector<DOMNode*> getNamedNodes(vector<DOMNode*> list, string s) {
+	vector<DOMNode*>result;
+	for (int i = 0; i < list.size(); i++) {
+		if (!isTextNode(list.at(i))) {
+			if (isMatchedNodeName(list.at(i), s)) {
+				result.push_back(list.at(i));
+
+			}
+		}
+	}
+	return result;
+}
+
+/*
+XMLCh* changeStr2XMLCh(const string s) {
+char cstr[s.size() + 1];
+copy(s.begin(), s.end(), cstr);
+return XMLString::transcode(cstr);
+}
+*/
 int main(int argc, char* args[])
 {
  
@@ -42,7 +112,8 @@ int main(int argc, char* args[])
 		ErrorHandler* errHandler = (ErrorHandler*) new HandlerBase();
 		parser->setErrorHandler(errHandler);
 		parser->setIncludeIgnorableWhitespace(false);
-		const char * xmlFile = "seouluniv21centry.gml";
+		parser->setDoSchema(true);
+		const char * xmlFile = "../samples/seouluniv21centry.gml";
         parser->parse(xmlFile);
 
 		cout << xmlFile << ": parse OK" << endl;
@@ -53,42 +124,41 @@ int main(int argc, char* args[])
 		
 		DOMNode* primalSpaceFeatures = 0;
 		DOMNode* multiLayeredGraph = 0;
-		DOMNodeList* cellSpaceMember = 0;
+		vector<DOMNode*> cellSpaceMember;
 
-		for (int i = 0; i < rootChild->getLength(); i++) {
-			DOMNode* tempChild = rootChild->item(i);
-			//cout << XMLString::transcode(tempChild->getNodeName()) << endl;
-			const char *primal = "core:primalSpaceFeatures";
-			const char *multi = "core:multiLayeredGraph";
-			cout << XMLString::transcode(tempChild->getNodeName()) << endl;
-			//tempChild->getNodeName()
-			//if(isIgnorableWhitespace())
-			if (!strcmp(XMLString::transcode(tempChild->getNodeName()),primal)) {
-				primalSpaceFeatures = tempChild->getChildNodes()->item(1);
-				cout << XMLString::transcode(primalSpaceFeatures->getNodeName()) << endl;
-			}
-			else if (!strcmp(XMLString::transcode(tempChild->getNodeName()),multi)) {
-				multiLayeredGraph = tempChild->getChildNodes()->item(1);
+		//primalSpaceFeatures -> PrimalSpaceFeatures
+		primalSpaceFeatures = getNamedNode(rootChild, "core:primalSpaceFeatures");
+		primalSpaceFeatures = getNamedNode(primalSpaceFeatures->getChildNodes(), "core:PrimalSpaceFeatures"); 
+
+		//multiLayeredGraph -> MultiLayeredGraph
+		multiLayeredGraph = getNamedNode(rootChild, "core:multiLayeredGraph");
+		multiLayeredGraph = getNamedNode(multiLayeredGraph->getChildNodes(), "core:MultiLayeredGraph");
+
+		
+		cellSpaceMember = getNamedNodes(primalSpaceFeatures->getChildNodes(),"core:cellSpaceMember");
+
+		vector<DOMNode*>cellspacelist;
+
+		for (int i = 0; i < cellSpaceMember.size(); i++) {
+			cellspacelist.push_back(getNamedNode(cellSpaceMember.at(i)->getChildNodes(),"core:CellSpace"));
+		}
+		vector<DOMNode*>solidList;
+		for (int i = 0; i < cellspacelist.size(); i++) {
+			DOMNode* cellSpace = cellspacelist.at(i);
+
+			//cellSpaceGeometry -> Geometry3D -> Solid
+			for (int j = 0; j < cellSpace->getChildNodes()->getLength(); j++) {
+				if (isMatchedNodeName(cellSpace->getChildNodes()->item(j), "core:cellSpaceGeometry")) { 
+					solidList.push_back(cellSpace->getChildNodes()->item(j)->getChildNodes()->item(1)->getChildNodes()->item(1));
+				}
+				
 			}
 		}
 
-		
-		cellSpaceMember = primalSpaceFeatures->getChildNodes();
-		
-		
-		for (int i = 0; i < cellSpaceMember->getLength(); i++) {
-			DOMNode* cellSpace = cellSpaceMember->item(i);
-			const char* cell = "core:cellSpaceMember";
-			if (!strcmp(XMLString::transcode(cellSpace->getNodeName()),cell )) {
-				DOMNamedNodeMap* attributeList = cellSpace->getChildNodes()->item(1)->getAttributes();
-				for (int j = 0; j < attributeList->getLength(); j++) {
-					const char* gmlId = "gml:id";
-					if (!strcmp(XMLString::transcode(attributeList->item(j)->getNodeName()), gmlId)) {
-						cout << XMLString::transcode(attributeList->item(j)->getNodeValue()) << endl;;
-					}
-				}
-			}
-			
+		for (int i = 0; i < solidList.size(); i++) {
+			DOMNamedNodeMap* list = solidList.at(i)->getAttributes();
+			getNamedAttribute(list,"gml:id");
+
 		}
 
 		delete parser;
