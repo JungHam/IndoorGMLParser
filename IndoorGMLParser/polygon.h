@@ -5,7 +5,6 @@
 #include <unordered_set>
 #include <unordered_map>
 
-#include "point.hpp"
 #include "linearring.h"
 #include "geometrymanager.h"
 #include "logger.h"
@@ -53,7 +52,10 @@ namespace indoorgml{
 		const std::vector<std::shared_ptr<LinearRing> >& interiorRings() const {
 			return m_interiorRings;
 		}
-
+		void Polygon::setExterior(shared_ptr<LinearRing> l);
+		shared_ptr<LinearRing> Polygon::getExterior();
+		Polygon(string id);
+		Polygon();
 		virtual ~Polygon();
 
 	protected:

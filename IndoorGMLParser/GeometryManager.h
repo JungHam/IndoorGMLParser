@@ -16,11 +16,16 @@ namespace indoorgml {
 	class IndoorGMLLogger;
 	class Solid;
 
-	class GeometryManager : public AbstractFeatures
+	class GeometryManager
 	{
 		friend class IndoorGMLFactory;
 	public:
 		
+
+		unsigned int getSolidsCount() const;
+		std::shared_ptr<Solid> getSolid(unsigned int i);
+		std::shared_ptr<const Solid> getSolid(unsigned int i) const;
+		std::shared_ptr<Solid> getSolid(string id);
 
 		unsigned int getPolygonsCount() const;
 		std::shared_ptr<Polygon> getPolygon(unsigned int i);
@@ -31,12 +36,13 @@ namespace indoorgml {
 		std::shared_ptr<const LineString> getLineString(unsigned int i) const;
 
 		unsigned int getGeometriesCount() const;
-		const GeometryManager& getGeometry(unsigned int i) const;
-		GeometryManager& getGeometry(unsigned int i);
+		const AbstractFeatures& getGeometry(unsigned int i) const;
+		AbstractFeatures& getGeometry(unsigned int i);
 		void addGeometry(string type, AbstractFeatures geom);
 
 		void addPolygon(std::shared_ptr<Polygon>);
 		void addLineString(std::shared_ptr<LineString>);
+		void addSolid(std::shared_ptr<Solid>);
 
 		/**
 		* @brief finishes the geometry by finishing its child polygons after broadcasting its appearances to all child polygons
@@ -50,13 +56,13 @@ namespace indoorgml {
 
 
 	protected:
-		GeometryManager(const std::string& id);
+		GeometryManager();
 
 		bool m_finished;
 
 
 		std::vector<std::shared_ptr<Solid> > m_childGeometries;
-
+		std::vector<std::shared_ptr<Solid> > m_solids;
 		std::vector<std::shared_ptr<Polygon> > m_polygons;
 		std::vector<std::shared_ptr<LineString> > m_lineStrings;
 	};

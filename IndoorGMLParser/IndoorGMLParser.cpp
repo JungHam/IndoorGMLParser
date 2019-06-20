@@ -14,9 +14,16 @@
 #include "xercesc/sax/HandlerBase.hpp"
 #include "xercesc/util/XMLString.hpp"
 #include "xercesc/util/PlatformUtils.hpp"
+#include "parserutil.h"
+#include "solid.h"
+#include "polygon.h"
+#include "linearring.h"
+#include "point.hpp"
 
 using namespace std;
 using namespace xercesc;
+using namespace util;
+
 /*
 XMLNode* getPolygon(XMLNode* xmlparent) {
 XMLNode* result;
@@ -31,67 +38,8 @@ return result;
 }
 
 */
-bool isTextNode(DOMNode* node) {
-	return (node->getNodeType() == DOMNode::TEXT_NODE);
-}
-bool isMatchedNodeName(DOMNode* node, string nodeType) {
-	return(!strcmp(XMLString::transcode(node->getNodeName()), nodeType.c_str()));
-}
-string changeXMLCh2str(const XMLCh* x) {
-	return XMLString::transcode(x);
-}
-string getNamedAttribute(DOMNamedNodeMap* list, string s) {
-	string result;
-	for (int j = 0; j < list->getLength(); j++) {
-		if (isTextNode(list->item(j))) {
-			continue;
-		}
-		if (isMatchedNodeName(list->item(j), s.c_str())) {
-			result = changeXMLCh2str(list->item(j)->getNodeValue());
-			cout << result << endl;
-			break;
-		}
-	}
-	return result;
-}
-DOMNode* getNamedNode(DOMNodeList* list, string s) {
-	DOMNode* result = 0;
-	for (int i = 0; i < list->getLength(); i++) {
-		if (!isTextNode(list->item(i))) {
-			if (isMatchedNodeName(list->item(i), s)) {
-				result = list->item(i);
-				break;
-			}
-		}
-	}
-	return result;
-}
 
-vector<DOMNode*> getNamedNodes(DOMNodeList* list, string s) {
-	vector<DOMNode*>result;
-	for (int i = 0; i < list->getLength(); i++) {
-		if (!isTextNode(list->item(i))) {
-			if (isMatchedNodeName(list->item(i), s)) {
-				result.push_back(list->item(i));
-				
-			}
-		}
-	}
-	return result;
-}
 
-vector<DOMNode*> getNamedNodes(vector<DOMNode*> list, string s) {
-	vector<DOMNode*>result;
-	for (int i = 0; i < list.size(); i++) {
-		if (!isTextNode(list.at(i))) {
-			if (isMatchedNodeName(list.at(i), s)) {
-				result.push_back(list.at(i));
-
-			}
-		}
-	}
-	return result;
-}
 
 /*
 XMLCh* changeStr2XMLCh(const string s) {
@@ -100,14 +48,69 @@ copy(s.begin(), s.end(), cstr);
 return XMLString::transcode(cstr);
 }
 */
+
+//shared_ptr<Solid> parseSolid(DOMNode* s) {
+
+
+shared_ptr<indoorgml::LinearRing> parseLinearRing(DOMNode* l) {
+	ParserUtil* parseHelper = new util::ParserUtil();
+	shared_ptr<indoorgml::LinearRing> result = shared_ptr<indoorgml::LinearRing>(new indoorgml::LinearRing());
+	vector<TVec3> pointList;
+	//DOMNode* result = 0;
+	if (parseHelper->hasNamedChild(l, "gml:pos")) {
+		<T> arr = new <T>[3];
+		int count = 0;
+		for (int i = 0; i < l->getChildNodes()->getLength(); i++) {
+			if (!parseHelper->isTextNode(l->getChildNodes()->item(i))) {
+				//arr[count] = stof(parseHelper->changeXMLCh2str(l->getChildNodes()->item(i)->getNodeValue()));
+				cout << parseHelper->changeXMLCh2str(l->getChildNodes()->item(i)->getNodeValue())) << endl;
+			}
+		}
+		//TVec3 newPoint = new TVec3(arr);
+
+	}
+	else if (parseHelper->hasNamedChild(l, "gml:posList")) {
+		//TODO: 
+	}
+	return result;
+}
+
+shared_ptr<indoorgml::Polygon> parsePolygon(DOMNode* p) {
+	ParserUtil* parseHelper = new util::ParserUtil();
+	
+	shared_ptr<indoorgml::Polygon> result = shared_ptr<indoorgml::Polygon>(new indoorgml::Polygon(parseHelper->getNamedAttribute(p->getAttributes(), "gml:id")));
+	DOMNode* exterior = parseHelper->getNamedNode(p->getChildNodes(), "gml:exterior");
+	if (parseHelper->hasNamedChild(exterior, "gml:LinearRing")) {
+		result->setExterior(parseLinearRing(parseHelper->getNamedNode(exterior->getChildNodes(),"gml:LinearRing")));
+	}
+	else if (parseHelper->isMatchedNodeName(exterior, "gml:LineString")) {}
+	return result;
+}
+
+
+shared_ptr<indoorgml::Solid> parseSolid(DOMNode* s){
+	ParserUtil* parseHelper = new util::ParserUtil();
+	shared_ptr<indoorgml::Solid> result = shared_ptr<indoorgml::Solid>(new indoorgml::Solid(parseHelper->getNamedAttribute(s->getAttributes(),"gml:id")));	
+	DOMNode* exterior = parseHelper->getNamedNode(s->getChildNodes(),"gml:exterior");
+	DOMNode* shell = parseHelper->getNamedNode(exterior->getChildNodes(),"gml:Shell");
+	vector<DOMNode*> surfaceMember = parseHelper->getNamedNodes(shell->getChildNodes(),"gml:surfaceMember");
+	vector<DOMNode*> polygonlist;
+	for (int i = 0; i < surfaceMember.size(); i++) {
+		DOMNode* p = parseHelper->getNamedNode(surfaceMember.at(i)->getChildNodes(),"gml:Polygon");
+		//cout << parseHelper->changeXMLCh2str(p->getNodeName()) << endl;;
+		polygonlist.push_back(p);
+	}
+
+	return result;
+}
+
 int main(int argc, char* args[])
 {
  
     try {
 		XMLPlatformUtils::Initialize();
 		XercesDOMParser* parser = new XercesDOMParser();
-		//parser->setValidationScheme(XercesDOMParser::Val_Always);
-		//parser->setDoNamespaces(true); // optional
+		ParserUtil* parseHelper = new util::ParserUtil();
 
 		ErrorHandler* errHandler = (ErrorHandler*) new HandlerBase();
 		parser->setErrorHandler(errHandler);
@@ -119,7 +122,7 @@ int main(int argc, char* args[])
 		cout << xmlFile << ": parse OK" << endl;
 		DOMDocument* dom = parser->getDocument();
 		DOMElement* rootNode = dom->getDocumentElement();
-		cout << XMLString::transcode(rootNode->getTagName()) << endl;
+		//cout << XMLString::transcode(rootNode->getTagName()) << endl;
 		DOMNodeList* rootChild = rootNode->getChildNodes();
 		
 		DOMNode* primalSpaceFeatures = 0;
@@ -127,20 +130,20 @@ int main(int argc, char* args[])
 		vector<DOMNode*> cellSpaceMember;
 
 		//primalSpaceFeatures -> PrimalSpaceFeatures
-		primalSpaceFeatures = getNamedNode(rootChild, "core:primalSpaceFeatures");
-		primalSpaceFeatures = getNamedNode(primalSpaceFeatures->getChildNodes(), "core:PrimalSpaceFeatures"); 
+		primalSpaceFeatures = parseHelper->getNamedNode(rootChild, "core:primalSpaceFeatures");
+		primalSpaceFeatures = parseHelper->getNamedNode(primalSpaceFeatures->getChildNodes(), "core:PrimalSpaceFeatures");
 
 		//multiLayeredGraph -> MultiLayeredGraph
-		multiLayeredGraph = getNamedNode(rootChild, "core:multiLayeredGraph");
-		multiLayeredGraph = getNamedNode(multiLayeredGraph->getChildNodes(), "core:MultiLayeredGraph");
+		multiLayeredGraph = parseHelper->getNamedNode(rootChild, "core:multiLayeredGraph");
+		multiLayeredGraph = parseHelper->getNamedNode(multiLayeredGraph->getChildNodes(), "core:MultiLayeredGraph");
 
 		
-		cellSpaceMember = getNamedNodes(primalSpaceFeatures->getChildNodes(),"core:cellSpaceMember");
+		cellSpaceMember = parseHelper->getNamedNodes(primalSpaceFeatures->getChildNodes(),"core:cellSpaceMember");
 
 		vector<DOMNode*>cellspacelist;
 
 		for (int i = 0; i < cellSpaceMember.size(); i++) {
-			cellspacelist.push_back(getNamedNode(cellSpaceMember.at(i)->getChildNodes(),"core:CellSpace"));
+			cellspacelist.push_back(parseHelper->getNamedNode(cellSpaceMember.at(i)->getChildNodes(),"core:CellSpace"));
 		}
 		vector<DOMNode*>solidList;
 		for (int i = 0; i < cellspacelist.size(); i++) {
@@ -148,7 +151,7 @@ int main(int argc, char* args[])
 
 			//cellSpaceGeometry -> Geometry3D -> Solid
 			for (int j = 0; j < cellSpace->getChildNodes()->getLength(); j++) {
-				if (isMatchedNodeName(cellSpace->getChildNodes()->item(j), "core:cellSpaceGeometry")) { 
+				if (parseHelper->isMatchedNodeName(cellSpace->getChildNodes()->item(j), "core:cellSpaceGeometry")) {
 					solidList.push_back(cellSpace->getChildNodes()->item(j)->getChildNodes()->item(1)->getChildNodes()->item(1));
 				}
 				
@@ -157,12 +160,16 @@ int main(int argc, char* args[])
 
 		for (int i = 0; i < solidList.size(); i++) {
 			DOMNamedNodeMap* list = solidList.at(i)->getAttributes();
-			getNamedAttribute(list,"gml:id");
-
+			parseHelper->getNamedAttribute(list,"gml:id");
+			parseSolid(solidList.at(i));
 		}
+
+
 
 		delete parser;
 		delete errHandler;
+		delete parseHelper;
+
 		XMLPlatformUtils::Terminate();
     } catch (const XMLException& toCatch) {
         char* message = XMLString::transcode(toCatch.getMessage());

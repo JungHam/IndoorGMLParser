@@ -5,7 +5,7 @@
 
 namespace indoorgml {
 
-	GeometryManager::GeometryManager(const std::string& id) : AbstractFeatures(id)
+	GeometryManager::GeometryManager()
 	{
 
 	}
@@ -58,19 +58,7 @@ namespace indoorgml {
 	}
 	*/
 
-	void GeometryManager::addGeometry(string type, AbstractFeatures geom)
-	{
-		
-		if (type == "Solid") {
-			
-		}
-		else if (type == "Surface") {}
-		else if (type == "Polygon") {}
-		else if (type == "LinearRing") {}
-		else if (type == "LineString") {}
-		else if (type == "Point") {}
-		//m_childGeometries.push_back(std::unique_ptr<>(geom));
-	}
+	
 
 	
 	GeometryManager::~GeometryManager()
@@ -80,6 +68,10 @@ namespace indoorgml {
 	void GeometryManager::addPolygon(std::shared_ptr<Polygon> p)
 	{
 		m_polygons.push_back(p);
+	}
+
+	void GeometryManager::addSolid(std::shared_ptr<Solid> s) {
+		m_solids.push_back(s);
 	}
 
 	void GeometryManager::addLineString(std::shared_ptr<LineString> l)

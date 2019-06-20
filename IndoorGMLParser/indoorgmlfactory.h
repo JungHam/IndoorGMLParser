@@ -1,9 +1,6 @@
 #pragma once
-
-#include "geometrymanager.h"
-
-
 #include <memory>
+#include "geometrymanager.h"
 
 namespace indoorgml {
 
@@ -19,19 +16,19 @@ namespace indoorgml {
 
 	class IndoorGMLFactory {
 	public:
-		IndoorGMLFactory(std::shared_ptr<Logger> logger);
+		IndoorGMLFactory::IndoorGMLFactory();
 
 		std::shared_ptr<Solid> createSolid(const std::string& id);		
 		std::shared_ptr<Polygon> createPolygon(const std::string& id);
 		std::shared_ptr<LineString> createLineString(const std::string& id);
-
-		void closeFactory();
-
+		std::unique_ptr<GeometryManager> getGeometryManager();
+		void closeFactory();		
 		~IndoorGMLFactory();
 	protected:
 
 		std::shared_ptr<Logger> m_logger;
 		std::unique_ptr<GeometryManager> m_geometryManager;
+		
 	};
 
 }

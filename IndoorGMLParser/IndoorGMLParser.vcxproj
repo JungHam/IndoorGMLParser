@@ -156,6 +156,7 @@
     <ClInclude Include="linearring.h" />
     <ClInclude Include="linestring.h" />
     <ClInclude Include="logger.h" />
+    <ClInclude Include="parserutil.h" />
     <ClInclude Include="point.hpp" />
     <ClInclude Include="polygon.h" />
     <ClInclude Include="solid.h" />
@@ -166,8 +167,10 @@
   <ItemGroup>
     <ClCompile Include="AbstractFeatures.cpp" />
     <ClCompile Include="geometrymanager.cpp" />
+    <ClCompile Include="IndoorGMLFactory.cpp" />
     <ClCompile Include="IndoorGMLParser.cpp" />
     <ClCompile Include="linearring.cpp" />
+    <ClCompile Include="parserutil.cpp" />
     <ClCompile Include="polygon.cpp" />
     <ClCompile Include="Solid.cpp" />
     <ClCompile Include="stdafx.cpp">

@@ -54,6 +54,9 @@
     <ClInclude Include="surface.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="parserutil.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -75,6 +78,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Solid.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="IndoorGMLFactory.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="parserutil.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

@@ -4,7 +4,6 @@
 #include <vector>
 #include <unordered_set>
 #include "AbstractFeatures.h"
-#include "surface.h"
 #include "logger.h"
 
 
@@ -12,6 +11,7 @@ namespace indoorgml {
 
 	class LineString;
 	class Polygon;
+	class Surface;
 
 	class Solid : public AbstractFeatures
 	{
@@ -21,13 +21,14 @@ namespace indoorgml {
 		bool hasExterior();
 		bool hasInterior();
 		const Solid& getExterior() const;
-		vector<shared_ptr<Surface>> getExterior();
+		vector<shared_ptr<Polygon>> getExterior();
 		std::vector<std::shared_ptr<Solid>> getInterior();
 		void addInterior(std::shared_ptr<Solid>);
 		//void deleteInterior();
-		void setExterior(vector<std::shared_ptr<Surface>>);
+		void setExterior(vector<std::shared_ptr<Polygon>>);
 		void finish(bool optimize, std::shared_ptr<Logger> logger);
 		Solid(const std::string& id);
+
 		~Solid();
 
 
@@ -36,7 +37,7 @@ namespace indoorgml {
 		bool m_finished;
 		unsigned int m_lod;
 
-		std::vector<std::shared_ptr<Surface> > exterior;
+		std::vector<std::shared_ptr<Polygon> > exterior;
 		std::vector<std::shared_ptr<Solid>> interior;
 	};
 

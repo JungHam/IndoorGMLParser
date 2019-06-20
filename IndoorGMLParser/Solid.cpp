@@ -5,6 +5,7 @@
 using namespace std;
 
 namespace indoorgml {
+	
 	bool Solid::hasExterior(){
 		if (exterior.size() == 0) {
 			return false;
@@ -22,7 +23,7 @@ namespace indoorgml {
 		}
 	}
 	//const Solid& Solid::getExterior() const {	}
-	vector<shared_ptr<Surface>> Solid::getExterior() {
+	vector<shared_ptr<Polygon>> Solid::getExterior() {
 		return exterior;
 	}
 	std::vector<std::shared_ptr<Solid>> Solid::getInterior() {
@@ -32,10 +33,12 @@ namespace indoorgml {
 		interior.push_back(s);
 	}
 	//void deleteInterior(){}
-	void Solid::setExterior(vector<std::shared_ptr<Surface>> s) {
+	void Solid::setExterior(vector<std::shared_ptr<Polygon>> s) {
 		exterior = s;
 	}
 	void Solid::finish(bool optimize, std::shared_ptr<Logger> logger) {}
 	Solid::Solid(const std::string& id) : AbstractFeatures(id){}
+
 	Solid::~Solid() {}
+	
 }

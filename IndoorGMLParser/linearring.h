@@ -6,6 +6,7 @@
 #include <vector>
 
 namespace indoorgml {
+
 	class LinearRing : public AbstractFeatures {
 	public:
 		LinearRing(const std::string& id, bool isExterior);

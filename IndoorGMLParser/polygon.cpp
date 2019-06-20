@@ -9,9 +9,8 @@
 #include "logger.h"
 namespace indoorgml {
 
-	Polygon::Polygon(const std::string& id, std::shared_ptr<Logger> logger) : AbstractFeatures(id), m_negNormal(false)
+	Polygon::Polygon(string id) : AbstractFeatures(id)
 	{
-		m_finished = false;
 	}
 
 	const std::vector<TVec3d>& Polygon::getVertices() const
@@ -44,7 +43,12 @@ namespace indoorgml {
 	{
 		return m_negNormal;
 	}
-
+	void Polygon::setExterior(shared_ptr<LinearRing> l) {
+		m_exteriorRing = l;
+	}
+	shared_ptr<LinearRing> Polygon::getExterior() {
+		return m_exteriorRing;
+	}
 	void Polygon::setNegNormal(bool negNormal)
 	{
 		m_negNormal = negNormal;
