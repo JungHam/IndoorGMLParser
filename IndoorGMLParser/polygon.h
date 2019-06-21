@@ -8,6 +8,7 @@
 #include "linearring.h"
 #include "geometrymanager.h"
 #include "logger.h"
+#include "point3d.h"
 
 class Tesselator;
 
@@ -55,11 +56,11 @@ namespace indoorgml{
 		void Polygon::setExterior(shared_ptr<LinearRing> l);
 		shared_ptr<LinearRing> Polygon::getExterior();
 		Polygon(string id);
-		Polygon();
+
 		virtual ~Polygon();
 
 	protected:
-		Polygon(const std::string& id, std::shared_ptr<Logger> logger);
+		//Polygon(const std::string& id);
 
 
 		/**
@@ -67,7 +68,7 @@ namespace indoorgml{
 		* @param tesselate if true the tesselator will be used to tesselate the linear rings
 		* @param tesselator the Tesselator object
 		*/
-		void computeIndices(Tesselator& tesselator, std::shared_ptr<Logger> logger);
+		//void computeIndices(Tesselator& tesselator, std::shared_ptr<Logger> logger);
 
 		TVec3d computeNormal();
 

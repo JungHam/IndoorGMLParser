@@ -1,5 +1,3 @@
-
-
 #include <algorithm>
 #include <stdexcept>
 #include <assert.h>
@@ -12,7 +10,7 @@ namespace indoorgml {
 	Polygon::Polygon(string id) : AbstractFeatures(id)
 	{
 	}
-
+	
 	const std::vector<TVec3d>& Polygon::getVertices() const
 	{
 		return m_vertices;

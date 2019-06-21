@@ -11,7 +11,7 @@ namespace indoorgml {
 
 	class LineString;
 	class Polygon;
-	class Surface;
+	//class Surface;
 
 	class Solid : public AbstractFeatures
 	{
@@ -20,7 +20,7 @@ namespace indoorgml {
 
 		bool hasExterior();
 		bool hasInterior();
-		const Solid& getExterior() const;
+		//const Solid& getExterior() const;
 		vector<shared_ptr<Polygon>> getExterior();
 		std::vector<std::shared_ptr<Solid>> getInterior();
 		void addInterior(std::shared_ptr<Solid>);

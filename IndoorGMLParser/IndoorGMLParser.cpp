@@ -18,7 +18,7 @@
 #include "solid.h"
 #include "polygon.h"
 #include "linearring.h"
-#include "point.hpp"
+#include "point3d.h"
 
 using namespace std;
 using namespace xercesc;
@@ -54,16 +54,16 @@ return XMLString::transcode(cstr);
 
 shared_ptr<indoorgml::LinearRing> parseLinearRing(DOMNode* l) {
 	ParserUtil* parseHelper = new util::ParserUtil();
-	shared_ptr<indoorgml::LinearRing> result = shared_ptr<indoorgml::LinearRing>(new indoorgml::LinearRing());
-	vector<TVec3> pointList;
+	shared_ptr<indoorgml::LinearRing> result = shared_ptr<indoorgml::LinearRing>(new indoorgml::LinearRing(parseHelper->getNamedAttribute(l->getAttributes(),"gml:id")));
+	vector<TVec3d> pointList;
 	//DOMNode* result = 0;
 	if (parseHelper->hasNamedChild(l, "gml:pos")) {
-		<T> arr = new <T>[3];
+		float arr[3];
 		int count = 0;
 		for (int i = 0; i < l->getChildNodes()->getLength(); i++) {
 			if (!parseHelper->isTextNode(l->getChildNodes()->item(i))) {
 				//arr[count] = stof(parseHelper->changeXMLCh2str(l->getChildNodes()->item(i)->getNodeValue()));
-				cout << parseHelper->changeXMLCh2str(l->getChildNodes()->item(i)->getNodeValue())) << endl;
+				cout << parseHelper->changeXMLCh2str(l->getChildNodes()->item(i)->getNodeValue()) << endl;
 			}
 		}
 		//TVec3 newPoint = new TVec3(arr);

@@ -8,7 +8,7 @@ namespace indoorgml {
 	class AbstractFeatures {
 	public:
 		AbstractFeatures(string id);
-		
+		AbstractFeatures();
 		string getId();
 
 		virtual ~AbstractFeatures();

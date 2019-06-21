@@ -2,13 +2,14 @@
 
 #include <string>
 #include "AbstractFeatures.h"
-#include "point.hpp"
+#include "point3d.h"
 #include <vector>
 
 namespace indoorgml {
 
 	class LinearRing : public AbstractFeatures {
 	public:
+		LinearRing(const std::string& id);
 		LinearRing(const std::string& id, bool isExterior);
 
 		bool isExterior() const;

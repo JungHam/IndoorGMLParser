@@ -3,11 +3,15 @@
 #include <float.h>
 #include <assert.h>
 
+
 namespace indoorgml {
 
 	LinearRing::LinearRing(const std::string& id, bool isExterior) : AbstractFeatures(id), m_exterior(isExterior)
 	{
 
+	}
+	LinearRing::LinearRing(const std::string& id): AbstractFeatures(id) {
+		
 	}
 
 	bool LinearRing::isExterior() const

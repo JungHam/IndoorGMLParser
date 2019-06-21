@@ -2,7 +2,7 @@
 #include <iostream>
 #include "AbstractFeatures.h"
 #include "LinearRing.h"
-
+using namespace std;
 namespace indoorgml {
 	class LineString;
 	class Polygon;
@@ -32,7 +32,7 @@ namespace indoorgml {
 		bool m_finished;
 		unsigned int m_lod;
 
-		std::vector<std::shared_ptr<LinearRing> > exterior;
-		std::vector<std::shared_ptr<LinearRing>> interior;
+		//shared_ptr<LinearRing> exterior;
+		//std::vector<shared_ptr<LinearRing>> interior;
 	};
 };
