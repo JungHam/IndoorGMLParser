@@ -1,6 +1,5 @@
 // IndoorGMLParser.cpp : Defines the entry point for the console application.
 //
-#pragma comment (lib,"../external/xercesc/lib/xerces-c_3.lib")
 #include "stdafx.h"
 
 #include <iostream>
@@ -58,13 +57,26 @@ shared_ptr<indoorgml::LinearRing> parseLinearRing(DOMNode* l) {
 	vector<TVec3d> pointList;
 	//DOMNode* result = 0;
 	if (parseHelper->hasNamedChild(l, "gml:pos")) {
-		float arr[3];
+		double arr[3];
 		int count = 0;
 		for (int i = 0; i < l->getChildNodes()->getLength(); i++) {
 			if (!parseHelper->isTextNode(l->getChildNodes()->item(i))) {
 				//arr[count] = stof(parseHelper->changeXMLCh2str(l->getChildNodes()->item(i)->getNodeValue()));
-				cout << parseHelper->changeXMLCh2str(l->getChildNodes()->item(i)->getNodeValue()) << endl;
+				//parse child node : under the pos, the value of x,y,z are also childnode.
+				DOMNode* pos = l->getChildNodes()->item(i);
+				for (int j = 0; count < 3; j++) {
+					if (!parseHelper->isTextNode(pos->getChildNodes()->item(j))) {
+						arr[count] = stof(parseHelper->changeXMLCh2str(pos->getChildNodes()->item(j)->getNodeValue()));
+						count++;
+						cout << arr[count] << " ";
+					}
+				}
+				cout << endl;
+				//create new point
+				//TVec3d newPoint = TVec3d(arr[0],arr[1],arr[2]);
+				//pointList.push_back(newPoint);
 			}
+			result->setVertices(pointList);
 		}
 		//TVec3 newPoint = new TVec3(arr);
 
@@ -95,11 +107,17 @@ shared_ptr<indoorgml::Solid> parseSolid(DOMNode* s){
 	DOMNode* shell = parseHelper->getNamedNode(exterior->getChildNodes(),"gml:Shell");
 	vector<DOMNode*> surfaceMember = parseHelper->getNamedNodes(shell->getChildNodes(),"gml:surfaceMember");
 	vector<DOMNode*> polygonlist;
+	//get polygon
 	for (int i = 0; i < surfaceMember.size(); i++) {
 		DOMNode* p = parseHelper->getNamedNode(surfaceMember.at(i)->getChildNodes(),"gml:Polygon");
-		//cout << parseHelper->changeXMLCh2str(p->getNodeName()) << endl;;
 		polygonlist.push_back(p);
 	}
+	//parse polygon
+	vector<shared_ptr<indoorgml::Polygon>>parsedPolygon;
+	for (int i = 0; i < surfaceMember.size(); i++) {
+		parsedPolygon.push_back(parsePolygon(polygonlist.at(i)));
+	}
+
 
 	return result;
 }

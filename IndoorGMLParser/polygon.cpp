@@ -28,6 +28,7 @@ namespace indoorgml {
 
 
 
+	/*
 	TVec3d Polygon::computeNormal()
 	{
 		if (m_exteriorRing == nullptr) return TVec3d();
@@ -36,6 +37,7 @@ namespace indoorgml {
 
 		return m_negNormal ? -normal : normal;
 	}
+	*/
 
 	bool Polygon::negNormal() const
 	{

@@ -29,6 +29,7 @@ namespace indoorgml {
 		m_vertices.push_back(v);
 	}
 
+	/*
 	TVec3d LinearRing::computeNormal() const
 	{
 		unsigned int len = size();
@@ -47,6 +48,7 @@ namespace indoorgml {
 		}
 		return n.normal();
 	}
+	*/
 
 	std::vector<TVec3d>& LinearRing::getVertices()
 	{

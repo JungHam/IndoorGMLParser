@@ -63,6 +63,9 @@
     <ClInclude Include="point3d.cpp">
       <Filter>Source Files</Filter>
     </ClInclude>
+    <ClInclude Include="point3df.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">

@@ -1,17 +1,3 @@
-﻿  polygon.cpp
-  linearring.cpp
-d:\git\indoorgmlparser\indoorgmlparser\linearring.cpp(24): warning C4267: 'return': conversion from 'size_t' to 'unsigned int', possible loss of data
-  geometrymanager.cpp
-d:\git\indoorgmlparser\indoorgmlparser\geometrymanager.cpp(16): warning C4267: 'return': conversion from 'size_t' to 'unsigned int', possible loss of data
-d:\git\indoorgmlparser\indoorgmlparser\geometrymanager.cpp(31): warning C4267: 'return': conversion from 'size_t' to 'unsigned int', possible loss of data
-d:\git\indoorgmlparser\indoorgmlparser\geometrymanager.cpp(46): warning C4267: 'return': conversion from 'size_t' to 'unsigned int', possible loss of data
-d:\git\indoorgmlparser\indoorgmlparser\geometrymanager.cpp(107): warning C4267: '+=': conversion from 'size_t' to 'unsigned int', possible loss of data
-  IndoorGMLParser.cpp
-d:\git\indoorgmlparser\indoorgmlparser\indoorgmlparser.cpp(61): warning C4101: 'arr': unreferenced local variable
-  IndoorGMLFactory.cpp
-  Generating Code...
-linearring.obj : error LNK2019: unresolved external symbol "public: __cdecl TVec3<double>::TVec3<double>(double,double,double)" (??0?$TVec3@N@@QEAA@NNN@Z) referenced in function "public: class TVec3<double> __cdecl indoorgml::LinearRing::computeNormal(void)const " (?computeNormal@LinearRing@indoorgml@@QEBA?AV?$TVec3@N@@XZ)
-polygon.obj : error LNK2001: unresolved external symbol "public: __cdecl TVec3<double>::TVec3<double>(double,double,double)" (??0?$TVec3@N@@QEAA@NNN@Z)
-linearring.obj : error LNK2019: unresolved external symbol "public: class TVec3<double> __cdecl TVec3<double>::normal(void)const " (?normal@?$TVec3@N@@QEBA?AV1@XZ) referenced in function "public: class TVec3<double> __cdecl indoorgml::LinearRing::computeNormal(void)const " (?computeNormal@LinearRing@indoorgml@@QEBA?AV?$TVec3@N@@XZ)
-polygon.obj : error LNK2019: unresolved external symbol "public: class TVec3<double> __cdecl TVec3<double>::operator-(void)const " (??G?$TVec3@N@@QEBA?AV0@XZ) referenced in function "protected: class TVec3<double> __cdecl indoorgml::Polygon::computeNormal(void)" (?computeNormal@Polygon@indoorgml@@IEAA?AV?$TVec3@N@@XZ)
-D:\git\IndoorGMLParser\x64\Debug\IndoorGMLParser.exe : fatal error LNK1120: 3 unresolved externals
+﻿  IndoorGMLParser.cpp
+  IndoorGMLParser.vcxproj -> C:\Users\jungh\바탕 화면\IndoorGMLParser\x64\Debug\IndoorGMLParser.exe
+  IndoorGMLParser.vcxproj -> C:\Users\jungh\바탕 화면\IndoorGMLParser\x64\Debug\IndoorGMLParser.pdb (Full PDB)
