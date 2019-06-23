@@ -95,7 +95,7 @@ int main(int argc, char* args[])
 		XMLPlatformUtils::Initialize();
 		XercesDOMParser* parser = new XercesDOMParser();
 		ParserUtil* parseHelper = new util::ParserUtil();
-
+		indoorgml::GeometryManager geomManager;
 		ErrorHandler* errHandler = (ErrorHandler*) new HandlerBase();
 		parser->setErrorHandler(errHandler);
 		parser->setIncludeIgnorableWhitespace(false);
@@ -112,6 +112,7 @@ int main(int argc, char* args[])
 		DOMNode* primalSpaceFeatures = 0;
 		DOMNode* multiLayeredGraph = 0;
 		vector<DOMNode*> cellSpaceMember;
+		vector<DOMNode*> cellSpaceBoundaryMember;
 
 		//primalSpaceFeatures -> PrimalSpaceFeatures
 		primalSpaceFeatures = parseHelper->getNamedNode(rootChild, "core:primalSpaceFeatures");
@@ -123,17 +124,24 @@ int main(int argc, char* args[])
 
 		
 		cellSpaceMember = parseHelper->getNamedNodes(primalSpaceFeatures->getChildNodes(),"core:cellSpaceMember");
+		cellSpaceBoundaryMember = parseHelper->getNamedNodes(primalSpaceFeatures->getChildNodes(), "core:cellSpaceBoundaryMember");
 
 		vector<DOMNode*>cellspacelist;
-
+		vector<DOMNode*>cellspaceboundarylist;
 		for (int i = 0; i < cellSpaceMember.size(); i++) {
 			cellspacelist.push_back(parseHelper->getNamedNode(cellSpaceMember.at(i)->getChildNodes(),"core:CellSpace"));
 		}
+
+		for (int i = 0; i < cellSpaceBoundaryMember.size(); i++) {
+			cellspaceboundarylist.push_back(parseHelper->getNamedNode(cellSpaceBoundaryMember.at(i)->getChildNodes(), "core:CellSpaceBoundary"));
+		}
+
 		vector<DOMNode*>solidList;
+		vector<DOMNode*>surfaceList;
+		
 		for (int i = 0; i < cellspacelist.size(); i++) {
 			DOMNode* cellSpace = cellspacelist.at(i);
 
-			//cellSpaceGeometry -> Geometry3D -> Solid
 			for (int j = 0; j < cellSpace->getChildNodes()->getLength(); j++) {
 				if (parseHelper->isMatchedNodeName(cellSpace->getChildNodes()->item(j), "core:cellSpaceGeometry")) {
 					solidList.push_back(cellSpace->getChildNodes()->item(j)->getChildNodes()->item(1)->getChildNodes()->item(1));
@@ -142,13 +150,32 @@ int main(int argc, char* args[])
 			}
 		}
 
-		for (int i = 0; i < solidList.size(); i++) {
-			DOMNamedNodeMap* list = solidList.at(i)->getAttributes();
-			parseHelper->getNamedAttribute(list,"gml:id");
-			parseSolid(solidList.at(i));
+		for (int i = 0; i < cellspaceboundarylist.size(); i++) {
+			DOMNode* cellSpaceboundary = cellspaceboundarylist.at(i);
+
+			for (int j = 0; j < cellSpaceboundary->getChildNodes()->getLength(); j++) {
+				if (parseHelper->isMatchedNodeName(cellSpaceboundary->getChildNodes()->item(j), "core:cellSpaceBoundaryGeometry")) {
+					surfaceList.push_back(cellSpaceboundary->getChildNodes()->item(j)->getChildNodes()->item(1)->getChildNodes()->item(1));
+				}
+
+			}
 		}
 
+		for (int i = 0; i < solidList.size(); i++) {
+			DOMNamedNodeMap* list = solidList.at(i)->getAttributes();
+			//parseHelper->getNamedAttribute(list,"gml:id");
+			shared_ptr<indoorgml::Solid> result = parseSolid(solidList.at(i));
+			geomManager.addSolid(result);
+		}
 
+		for (int i = 0; i < surfaceList.size(); i++) {
+			DOMNamedNodeMap* list = surfaceList.at(i)->getAttributes();
+			//parseHelper->getNamedAttribute(list, "gml:id");
+			shared_ptr<indoorgml::Polygon> result = parsePolygon(surfaceList.at(i));
+			geomManager.addPolygon(result);
+		}
+
+		cout << geomManager.getSolidsCount();
 
 		delete parser;
 		delete errHandler;

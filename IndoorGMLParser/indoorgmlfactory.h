@@ -15,6 +15,7 @@ namespace indoorgml {
 	class LineString;
 
 	class IndoorGMLFactory {
+		friend class GeometryFactory;
 	public:
 		IndoorGMLFactory::IndoorGMLFactory();
 

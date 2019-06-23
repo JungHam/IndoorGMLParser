@@ -53,10 +53,10 @@ namespace indoorgml {
 		void finish(bool optimize, std::shared_ptr<Logger> logger);
 
 		~GeometryManager();
-
+		GeometryManager();
 
 	protected:
-		GeometryManager();
+		
 
 		bool m_finished;
 

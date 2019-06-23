@@ -7,7 +7,6 @@ namespace indoorgml {
 
 	GeometryManager::GeometryManager()
 	{
-
 	}
 
 
@@ -58,7 +57,9 @@ namespace indoorgml {
 	}
 	*/
 
-	
+	unsigned int GeometryManager::getSolidsCount() const {
+		return m_solids.size();
+	}
 
 	
 	GeometryManager::~GeometryManager()
