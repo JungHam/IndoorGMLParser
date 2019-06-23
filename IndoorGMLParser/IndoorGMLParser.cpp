@@ -19,67 +19,33 @@
 #include "linearring.h"
 #include "point3d.h"
 
+
 using namespace std;
 using namespace xercesc;
 using namespace util;
-
-/*
-XMLNode* getPolygon(XMLNode* xmlparent) {
-XMLNode* result;
-return result;
-}
-
-XMLNode* getGeometry(XMLNode* xmlparent) {
-
-XMLNode* exterior = xmlparent->FirstChildElement("gml:exterior");
-XMLNode* result;
-return result;
-}
-
-*/
-
-
-
-/*
-XMLCh* changeStr2XMLCh(const string s) {
-char cstr[s.size() + 1];
-copy(s.begin(), s.end(), cstr);
-return XMLString::transcode(cstr);
-}
-*/
-
-//shared_ptr<Solid> parseSolid(DOMNode* s) {
 
 
 shared_ptr<indoorgml::LinearRing> parseLinearRing(DOMNode* l) {
 	ParserUtil* parseHelper = new util::ParserUtil();
 	shared_ptr<indoorgml::LinearRing> result = shared_ptr<indoorgml::LinearRing>(new indoorgml::LinearRing(parseHelper->getNamedAttribute(l->getAttributes(),"gml:id")));
-	vector<TVec3d> pointList;
-	//DOMNode* result = 0;
 	if (parseHelper->hasNamedChild(l, "gml:pos")) {
 		double arr[3];
 		int count = 0;
+		vector<indoorgml::Point3D>pointList;
 		for (int i = 0; i < l->getChildNodes()->getLength(); i++) {
 			if (!parseHelper->isTextNode(l->getChildNodes()->item(i))) {
-				//arr[count] = stof(parseHelper->changeXMLCh2str(l->getChildNodes()->item(i)->getNodeValue()));
-				//parse child node : under the pos, the value of x,y,z are also childnode.
-				DOMNode* pos = l->getChildNodes()->item(i);
-				for (int j = 0; count < 3; j++) {
-					if (!parseHelper->isTextNode(pos->getChildNodes()->item(j))) {
-						arr[count] = stof(parseHelper->changeXMLCh2str(pos->getChildNodes()->item(j)->getNodeValue()));
-						count++;
-						cout << arr[count] << " ";
-					}
-				}
-				cout << endl;
-				//create new point
-				//TVec3d newPoint = TVec3d(arr[0],arr[1],arr[2]);
-				//pointList.push_back(newPoint);
+				//cout << parseHelper->changeXMLCh2str(l->getChildNodes()->item(i)->getTextContent()) << endl;
+				string pointvalue = parseHelper->changeXMLCh2str(l->getChildNodes()->item(i)->getTextContent());
+				stringstream ss(pointvalue);
+				ss >> arr[0] >> arr[1] >> arr[2];
+				//cout << arr[0] << " " << arr[1] << " " << arr[2] << endl;
+				indoorgml::Point3D newPoint(arr);
+				pointList.push_back(newPoint);
 			}
-			result->setVertices(pointList);
+				
 		}
-		//TVec3 newPoint = new TVec3(arr);
-
+		result->setVertices(pointList);
+		
 	}
 	else if (parseHelper->hasNamedChild(l, "gml:posList")) {
 		//TODO: 
@@ -117,7 +83,7 @@ shared_ptr<indoorgml::Solid> parseSolid(DOMNode* s){
 	for (int i = 0; i < surfaceMember.size(); i++) {
 		parsedPolygon.push_back(parsePolygon(polygonlist.at(i)));
 	}
-
+	result->setExterior(parsedPolygon);
 
 	return result;
 }

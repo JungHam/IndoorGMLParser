@@ -162,9 +162,9 @@
     <ClInclude Include="linestring.h" />
     <ClInclude Include="logger.h" />
     <ClInclude Include="parserutil.h" />
+    <ClInclude Include="templatePoint3d.h" />
+    <ClInclude Include="templatePoint3d.cpp" />
     <ClInclude Include="point3d.h" />
-    <ClInclude Include="point3d.cpp" />
-    <ClInclude Include="point3df.h" />
     <ClInclude Include="polygon.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="solid.h" />
@@ -179,6 +179,7 @@
     <ClCompile Include="IndoorGMLParser.cpp" />
     <ClCompile Include="linearring.cpp" />
     <ClCompile Include="parserutil.cpp" />
+    <ClCompile Include="point3d.cpp" />
     <ClCompile Include="polygon.cpp" />
     <ClCompile Include="Solid.cpp" />
     <ClCompile Include="stdafx.cpp">

@@ -16,20 +16,20 @@ namespace indoorgml {
 
 		unsigned int size() const;
 
-		const std::vector<TVec3d>& getVertices() const;
-		std::vector<TVec3d>& getVertices();
-		void setVertices(std::vector<TVec3d> vertices);
+		const std::vector<Point3D>& getVertices() const;
+		std::vector<Point3D>& getVertices();
+		void setVertices(std::vector<Point3D> vertices);
 
-		void addVertex(const TVec3d& v);
+		void addVertex(const Point3D& v);
 
-		TVec3d computeNormal() const;
+		Point3D computeNormal() const;
 
 		void forgetVertices();
 
 	protected:
 		bool m_exterior;
 
-		std::vector<TVec3d> m_vertices;
+		std::vector<Point3D> m_vertices;
 		
 	};
 }

@@ -11,12 +11,12 @@ namespace indoorgml {
 	{
 	}
 	
-	const std::vector<TVec3d>& Polygon::getVertices() const
+	const std::vector<Point3D>& Polygon::getVertices() const
 	{
 		return m_vertices;
 	}
 
-	std::vector<TVec3d>& Polygon::getVertices()
+	std::vector<Point3D>& Polygon::getVertices()
 	{
 		return m_vertices;
 	}
@@ -29,11 +29,11 @@ namespace indoorgml {
 
 
 	/*
-	TVec3d Polygon::computeNormal()
+	Point3D Polygon::computeNormal()
 	{
-		if (m_exteriorRing == nullptr) return TVec3d();
+		if (m_exteriorRing == nullptr) return Point3D();
 
-		TVec3d normal = m_exteriorRing->computeNormal();
+		Point3D normal = m_exteriorRing->computeNormal();
 
 		return m_negNormal ? -normal : normal;
 	}

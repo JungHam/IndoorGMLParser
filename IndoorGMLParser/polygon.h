@@ -25,8 +25,8 @@ namespace indoorgml{
 	public:
 		
 		// Get the vertices
-		const std::vector<TVec3d>& getVertices() const;
-		std::vector<TVec3d>& getVertices();
+		const std::vector<Point3D>& getVertices() const;
+		std::vector<Point3D>& getVertices();
 
 		// Get the indices
 		const std::vector<unsigned int>& getIndices() const;
@@ -70,9 +70,9 @@ namespace indoorgml{
 		*/
 		//void computeIndices(Tesselator& tesselator, std::shared_ptr<Logger> logger);
 
-		TVec3d computeNormal();
+		Point3D computeNormal();
 
-		std::vector<TVec3d> m_vertices;
+		std::vector<Point3D> m_vertices;
 		std::vector<unsigned int> m_indices;
 
 		std::shared_ptr<LinearRing> m_exteriorRing;
