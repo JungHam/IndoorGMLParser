@@ -1,4 +1,3 @@
-#pragma comment (lib,"../external/xercesc/lib/xerces-c_3.lib")
 #include "stdafx.h"
 
 #include <iostream>
