@@ -1,3 +1,5 @@
+#ifndef _SOLID_H_
+#define _SOLID_H_
 #pragma once
 
 #include <memory>
@@ -42,3 +44,4 @@ namespace indoorgml {
 	};
 
 }
+#endif

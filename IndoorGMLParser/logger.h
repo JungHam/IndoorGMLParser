@@ -1,3 +1,5 @@
+#ifndef _LOGGER_H_
+#define _LOGGER_H_
 #pragma once
 
 #include <sstream>
@@ -59,3 +61,4 @@ namespace indoorgml {
 	#define CITYGML_LOG_DEBUG(logger, message) CITYGML_LOG(logger, citygml::CityGMLLogger::LOGLEVEL::LL_DEBUG, message)
 	#define CITYGML_LOG_TRACE(logger, message) CITYGML_LOG(logger, citygml::CityGMLLogger::LOGLEVEL::LL_TRACE, message)
 }
+#endif

@@ -1,3 +1,5 @@
+#ifndef _INDOORGMLFACTORY_H_
+#define _INDOORGMLFACTORY_H_
 #pragma once
 #include <memory>
 #include "geometrymanager.h"
@@ -33,4 +35,5 @@ namespace indoorgml {
 	};
 
 }
+#endif
 

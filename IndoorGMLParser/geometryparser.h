@@ -1,3 +1,6 @@
+#ifndef _GEOMETRYPARSER_H_
+#define _GEOMETRYPARSER_H_
+#pragma once
 #include "stdafx.h"
 
 #include <iostream>
@@ -26,3 +29,4 @@ namespace util {
 	};
 
 }
+#endif

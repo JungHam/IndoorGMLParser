@@ -1,3 +1,5 @@
+#ifndef _SURFACE_H_
+#define _SURFACE_H_
 #pragma once
 #include <iostream>
 #include "AbstractFeatures.h"
@@ -33,6 +35,8 @@ namespace indoorgml {
 		unsigned int m_lod;
 
 		//shared_ptr<LinearRing> exterior;
+		//shared_ptr<Polygon> polygonlist;
 		//std::vector<shared_ptr<LinearRing>> interior;
 	};
 };
+#endif

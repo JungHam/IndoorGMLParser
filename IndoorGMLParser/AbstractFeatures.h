@@ -1,3 +1,6 @@
+#ifndef _ABSTRACTFEATURE_H_
+#define _ABSTRACTFEATURE_H_
+
 #pragma once
 
 #include <string>
@@ -18,3 +21,5 @@ namespace indoorgml {
 		string m_id;
 	};
 }
+
+#endif

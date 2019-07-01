@@ -1,3 +1,5 @@
+#ifndef _POLYGON_H_
+#define _POLYGON_H_
 #pragma once
 
 #include <memory>
@@ -84,3 +86,4 @@ namespace indoorgml{
 		std::shared_ptr<Logger> m_logger;
 	};
 }
+#endif

@@ -1,3 +1,6 @@
+#ifndef _GEOMETRYMANAGER_H_
+#define _GEOMETRYMANAGER_H_
+
 #pragma once
 
 #include <memory>
@@ -68,3 +71,5 @@ namespace indoorgml {
 	};
 
 }
+
+#endif

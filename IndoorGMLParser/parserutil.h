@@ -1,3 +1,6 @@
+#ifndef _PARSERUTIL_H_
+#define _PARSERUTIL_H_
+
 #include "stdafx.h"
 
 #include <iostream>
@@ -34,3 +37,4 @@ namespace util {
 		vector<DOMNode*> getNamedNodes(vector<DOMNode*> list, string s);
 	};
 }
+#endif

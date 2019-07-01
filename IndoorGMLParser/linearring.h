@@ -1,3 +1,6 @@
+#ifndef _LINEARRING_H_
+#define _LINEARRING_H_
+
 #pragma once
 
 #include <string>
@@ -34,3 +37,4 @@ namespace indoorgml {
 	};
 }
 
+#endif
