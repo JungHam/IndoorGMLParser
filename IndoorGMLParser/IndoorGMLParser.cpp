@@ -24,12 +24,8 @@ using namespace std;
 using namespace xercesc;
 using namespace util;
 
-
-
-int main(int argc, char* args[])
-{
- 
-    try {
+int readDocument(const char* xmlFile){
+	try {
 		XMLPlatformUtils::Initialize();
 		XercesDOMParser* parser = new XercesDOMParser();
 		ParserUtil* parseHelper = new util::ParserUtil();
@@ -39,15 +35,15 @@ int main(int argc, char* args[])
 		parser->setErrorHandler(errHandler);
 		parser->setIncludeIgnorableWhitespace(false);
 		parser->setDoSchema(true);
-		const char * xmlFile = "../samples/seouluniv21centry.gml";
-        parser->parse(xmlFile);
+		//const char * xmlFile = "../samples/seouluniv21centry.gml";
+		parser->parse(xmlFile);
 
 		cout << xmlFile << ": parse OK" << endl;
 		DOMDocument* dom = parser->getDocument();
 		DOMElement* rootNode = dom->getDocumentElement();
 		//cout << XMLString::transcode(rootNode->getTagName()) << endl;
 		DOMNodeList* rootChild = rootNode->getChildNodes();
-		
+
 		DOMNode* primalSpaceFeatures = 0;
 		DOMNode* multiLayeredGraph = 0;
 		vector<DOMNode*> cellSpaceMember;
@@ -62,13 +58,13 @@ int main(int argc, char* args[])
 		multiLayeredGraph = parseHelper->getNamedNode(multiLayeredGraph->getChildNodes(), "core:MultiLayeredGraph");
 
 		//cellSpaceMember -> cellSpace & cellSpaceBoundaryMember -> cellSpaceBoundary
-		cellSpaceMember = parseHelper->getNamedNodes(primalSpaceFeatures->getChildNodes(),"core:cellSpaceMember");
+		cellSpaceMember = parseHelper->getNamedNodes(primalSpaceFeatures->getChildNodes(), "core:cellSpaceMember");
 		cellSpaceBoundaryMember = parseHelper->getNamedNodes(primalSpaceFeatures->getChildNodes(), "core:cellSpaceBoundaryMember");
 
 		vector<DOMNode*>cellspacelist;
 		vector<DOMNode*>cellspaceboundarylist;
 		for (int i = 0; i < cellSpaceMember.size(); i++) {
-			cellspacelist.push_back(parseHelper->getNamedNode(cellSpaceMember.at(i)->getChildNodes(),"core:CellSpace"));
+			cellspacelist.push_back(parseHelper->getNamedNode(cellSpaceMember.at(i)->getChildNodes(), "core:CellSpace"));
 		}
 
 		for (int i = 0; i < cellSpaceBoundaryMember.size(); i++) {
@@ -77,7 +73,7 @@ int main(int argc, char* args[])
 
 		vector<DOMNode*>solidList;
 		vector<DOMNode*>surfaceList;
-		
+
 		for (int i = 0; i < cellspacelist.size(); i++) {
 			DOMNode* cellSpace = cellspacelist.at(i);
 
@@ -85,7 +81,7 @@ int main(int argc, char* args[])
 				if (parseHelper->isMatchedNodeName(cellSpace->getChildNodes()->item(j), "core:cellSpaceGeometry")) {
 					solidList.push_back(cellSpace->getChildNodes()->item(j)->getChildNodes()->item(1)->getChildNodes()->item(1));
 				}
-				
+
 			}
 		}
 
@@ -110,7 +106,7 @@ int main(int argc, char* args[])
 		for (int i = 0; i < surfaceList.size(); i++) {
 			DOMNamedNodeMap* list = surfaceList.at(i)->getAttributes();
 			//parseHelper->getNamedAttribute(list, "gml:id");
-			shared_ptr<indoorgml::Polygon> result = gmp -> parsePolygon(surfaceList.at(i));
+			shared_ptr<indoorgml::Polygon> result = gmp->parsePolygon(surfaceList.at(i));
 			geomManager.addPolygon(result);
 		}
 
@@ -119,29 +115,38 @@ int main(int argc, char* args[])
 		delete parser;
 		delete errHandler;
 		delete parseHelper;
-
 		XMLPlatformUtils::Terminate();
-    } catch (const XMLException& toCatch) {
-        char* message = XMLString::transcode(toCatch.getMessage());
-        cout << "Exception message is: \n" << message << "\n";
-        XMLString::release(&message);
-        return -1;
-    } catch (const DOMException& toCatch) {
-        char* message = XMLString::transcode(toCatch.msg);
-        cout << "Exception message is: \n" << message << "\n";
-        XMLString::release(&message);
-        return -1;
-    }
+	}
+	catch (const XMLException& toCatch) {
+		char* message = XMLString::transcode(toCatch.getMessage());
+		cout << "Exception message is: \n" << message << "\n";
+		XMLString::release(&message);
+		return -1;
+	}
+	catch (const DOMException& toCatch) {
+		char* message = XMLString::transcode(toCatch.msg);
+		cout << "Exception message is: \n" << message << "\n";
+		XMLString::release(&message);
+		return -1;
+	}
 	catch (const SAXParseException& ex) {
 		cout << XMLString::transcode(ex.getMessage()) << endl;
 
 	}
 	catch (...) {
-        cout << "Unexpected Exception \n";
-        return -1;
-    }
+		cout << "Unexpected Exception \n";
+		return -1;
+	}
 
-    
-    return 0;
+
+	return 0;
+
+}
+
+int main(int argc, char* args[])
+{
+
+	const char * xmlFile = "../samples/seouluniv21centry.gml";
+	readDocument(xmlFile);
 }
 

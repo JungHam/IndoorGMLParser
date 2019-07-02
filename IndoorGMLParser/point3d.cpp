@@ -200,6 +200,17 @@ namespace indoorgml {
 		return is >> v.x >> v.y >> v.z;
 	}
 
+	void Point3D::unitary() {
+		double module = x*x + y*y + z*z;
+		module = sqrt(module);
+		x = x / module;
+		y = y / module;
+		z = z / module;
+	}
+
+	double Point3D::scalar(const Point3D& vec) const {
+		return x * vec.x + y * vec.y + z * vec.z;
+	}
 }
 
 

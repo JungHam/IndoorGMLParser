@@ -1,31 +1,16 @@
-c:\users\jungh\바탕 화면\indoorgmlparser\indoorgmlparser\x64\debug\indoorgmlparser.pch
-c:\users\jungh\바탕 화면\indoorgmlparser\indoorgmlparser\x64\debug\vc140.pdb
-c:\users\jungh\바탕 화면\indoorgmlparser\indoorgmlparser\x64\debug\vc140.idb
-c:\users\jungh\바탕 화면\indoorgmlparser\indoorgmlparser\x64\debug\stdafx.obj
-c:\users\jungh\바탕 화면\indoorgmlparser\indoorgmlparser\x64\debug\abstractfeatures.obj
-c:\users\jungh\바탕 화면\indoorgmlparser\indoorgmlparser\x64\debug\geometrymanager.obj
-c:\users\jungh\바탕 화면\indoorgmlparser\indoorgmlparser\x64\debug\indoorgmlfactory.obj
-c:\users\jungh\바탕 화면\indoorgmlparser\indoorgmlparser\x64\debug\linearring.obj
-c:\users\jungh\바탕 화면\indoorgmlparser\indoorgmlparser\x64\debug\polygon.obj
-c:\users\jungh\바탕 화면\indoorgmlparser\indoorgmlparser\x64\debug\solid.obj
-c:\users\jungh\바탕 화면\indoorgmlparser\indoorgmlparser\x64\debug\indoorgmlparser.obj
-c:\users\jungh\바탕 화면\indoorgmlparser\indoorgmlparser\x64\debug\parserutil.obj
-c:\users\jungh\바탕 화면\indoorgmlparser\indoorgmlparser\x64\debug\point3df.obj
-c:\users\jungh\바탕 화면\indoorgmlparser\indoorgmlparser\x64\debug\point3d.obj
-c:\users\jungh\바탕 화면\indoorgmlparser\x64\debug\indoorgmlparser.pdb
-c:\users\jungh\바탕 화면\indoorgmlparser\indoorgmlparser\x64\debug\indoorgmlparser.tlog\cl.command.1.tlog
-c:\users\jungh\바탕 화면\indoorgmlparser\indoorgmlparser\x64\debug\indoorgmlparser.tlog\cl.read.1.tlog
-c:\users\jungh\바탕 화면\indoorgmlparser\indoorgmlparser\x64\debug\indoorgmlparser.tlog\cl.write.1.tlog
-c:\users\jungh\바탕 화면\indoorgmlparser\indoorgmlparser\x64\debug\indoorgmlparser.tlog\link-cvtres.read.1.tlog
-c:\users\jungh\바탕 화면\indoorgmlparser\indoorgmlparser\x64\debug\indoorgmlparser.tlog\link-cvtres.write.1.tlog
-c:\users\jungh\바탕 화면\indoorgmlparser\indoorgmlparser\x64\debug\indoorgmlparser.tlog\link-rc.read.1.tlog
-c:\users\jungh\바탕 화면\indoorgmlparser\indoorgmlparser\x64\debug\indoorgmlparser.tlog\link-rc.write.1.tlog
-c:\users\jungh\바탕 화면\indoorgmlparser\indoorgmlparser\x64\debug\indoorgmlparser.tlog\link.18252-cvtres.read.1.tlog
-c:\users\jungh\바탕 화면\indoorgmlparser\indoorgmlparser\x64\debug\indoorgmlparser.tlog\link.18252-cvtres.write.1.tlog
-c:\users\jungh\바탕 화면\indoorgmlparser\indoorgmlparser\x64\debug\indoorgmlparser.tlog\link.18252-rc.read.1.tlog
-c:\users\jungh\바탕 화면\indoorgmlparser\indoorgmlparser\x64\debug\indoorgmlparser.tlog\link.18252-rc.write.1.tlog
-c:\users\jungh\바탕 화면\indoorgmlparser\indoorgmlparser\x64\debug\indoorgmlparser.tlog\link.18252.read.1.tlog
-c:\users\jungh\바탕 화면\indoorgmlparser\indoorgmlparser\x64\debug\indoorgmlparser.tlog\link.18252.write.1.tlog
-c:\users\jungh\바탕 화면\indoorgmlparser\indoorgmlparser\x64\debug\indoorgmlparser.tlog\link.command.1.tlog
-c:\users\jungh\바탕 화면\indoorgmlparser\indoorgmlparser\x64\debug\indoorgmlparser.tlog\link.read.1.tlog
-c:\users\jungh\바탕 화면\indoorgmlparser\indoorgmlparser\x64\debug\indoorgmlparser.tlog\link.write.1.tlog
+d:\git\indoorgmlparser\indoorgmlparser\x64\debug\indoorgmlparser.pch
+d:\git\indoorgmlparser\indoorgmlparser\x64\debug\vc140.pdb
+d:\git\indoorgmlparser\indoorgmlparser\x64\debug\vc140.idb
+d:\git\indoorgmlparser\indoorgmlparser\x64\debug\stdafx.obj
+d:\git\indoorgmlparser\indoorgmlparser\x64\debug\abstractfeatures.obj
+d:\git\indoorgmlparser\indoorgmlparser\x64\debug\geometrymanager.obj
+d:\git\indoorgmlparser\indoorgmlparser\x64\debug\geometryparser.obj
+d:\git\indoorgmlparser\indoorgmlparser\x64\debug\indoorgmlfactory.obj
+d:\git\indoorgmlparser\indoorgmlparser\x64\debug\indoorgmlparser.obj
+d:\git\indoorgmlparser\indoorgmlparser\x64\debug\linearring.obj
+d:\git\indoorgmlparser\indoorgmlparser\x64\debug\parserutil.obj
+d:\git\indoorgmlparser\indoorgmlparser\x64\debug\polygon.obj
+d:\git\indoorgmlparser\indoorgmlparser\x64\debug\solid.obj
+d:\git\indoorgmlparser\indoorgmlparser\x64\debug\indoorgmlparser.tlog\cl.command.1.tlog
+d:\git\indoorgmlparser\indoorgmlparser\x64\debug\indoorgmlparser.tlog\cl.read.1.tlog
+d:\git\indoorgmlparser\indoorgmlparser\x64\debug\indoorgmlparser.tlog\cl.write.1.tlog
