@@ -88,6 +88,11 @@ namespace indoorgml {
 		this->y = y;
 		this->z = z;
 	}
+	Point3D::Point3D() {
+		this->x = 0;
+		this->y = 0;
+		this->z = 0;
+	}
 	Point3D::Point3D(double vec[])
 	{
 		memcpy(xyz, vec, 3 * sizeof(double));

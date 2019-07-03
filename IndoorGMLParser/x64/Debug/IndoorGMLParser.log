@@ -1,2 +1,5 @@
-﻿  IndoorGMLParser.vcxproj -> D:\git\IndoorGMLParser\x64\Debug\IndoorGMLParser.exe
+﻿  Face.cpp
+d:\git\indoorgmlparser\indoorgmlparser\face.cpp(35): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+d:\git\indoorgmlparser\indoorgmlparser\face.cpp(148): warning C4715: 'geometry::Face::getTessellatedTriangles': not all control paths return a value
+  IndoorGMLParser.vcxproj -> D:\git\IndoorGMLParser\x64\Debug\IndoorGMLParser.exe
   IndoorGMLParser.vcxproj -> D:\git\IndoorGMLParser\x64\Debug\IndoorGMLParser.pdb (Full PDB)

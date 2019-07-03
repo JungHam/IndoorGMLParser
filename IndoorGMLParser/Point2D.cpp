@@ -4,7 +4,7 @@
 #include <string.h>
 #include "Point2D.h"
 
-namespace indoorgml {
+namespace geometry {
 	Point2D::Point2D(double x, double y)
 	{
 		this->x = x;
@@ -40,7 +40,6 @@ namespace indoorgml {
 		const double tmp = (len != (double)0) ? ((double)1 / len) : (double)0;
 		x *= tmp;
 		y *= tmp;
-		z *= tmp;
 		return *this;
 	}
 
@@ -127,6 +126,10 @@ namespace indoorgml {
 
 	double Point2D::scalar(const Point2D& vec) const {
 		return x * vec.x + y * vec.y;
+	}
+
+	double Point2D::cross(const Point2D& vec)const{
+		return x*vec.y - y*vec.x;
 	}
 }
 

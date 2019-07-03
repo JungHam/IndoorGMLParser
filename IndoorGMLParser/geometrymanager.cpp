@@ -93,8 +93,8 @@ namespace indoorgml {
 		//	child->finish(optimize, logger);
 		//}
 
-		for (std::shared_ptr<Polygon>& polygon : m_polygons) {
-			polygon->finish(optimize, logger);
+		for (std::shared_ptr<indoorgml::Polygon>& polygon : m_polygons) {
+			//polygon->finish(optimize, logger);
 		}
 
 	}

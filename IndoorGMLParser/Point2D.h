@@ -2,15 +2,16 @@
 #define _POINT2D_H_
 #pragma once
 #include <iostream>
-
+#include "Point3D.h"
 using namespace std;
 
-namespace indoorgml {
+namespace geometry {
 	class Point2D {
 	public:
 		union {
 			double xy[2];
 			double rgb[3];
+			indoorgml::Point3D originalPoint;
 			struct { double x, y; };
 			struct { double r, g, b; };
 		};
@@ -35,7 +36,7 @@ namespace indoorgml {
 
 		Point2D operator/(const Point2D& rhs) const;
 		Point2D operator/(const double rhs) const;
-		Point2D Point2D::cross(const Point2D& vec) const;
+		double Point2D::cross(const Point2D& vec) const;
 		double Point2D::scalar(const Point2D& vec) const;
 		inline bool operator==(const Point2D& rhs) const;
 		inline bool operator!=(const Point2D& rhs) const;

@@ -2,24 +2,32 @@
 #include <iostream>
 #include <vector>
 #include "Vertex.h"
-#include "point3d.h"
-#include "polygon.h"
+#include "Point3d.h"
+#include "Polygon2D.h"
+#include "Polygon.h"
+#include "Triangle.h"
+
 using namespace std;
 
 namespace geometry {
 	class Face {
 		vector<Vertex>vertexArray;
 		indoorgml::Point3D calculateNormal();
-		indoorgml::Point3D normal;
+		indoorgml::Point3D _normal;
+		bool hasNormalValue;
 	public : 
-		
+		Face();
 		void addVertex(Vertex a);
 		void setVertexArray(vector<Vertex> arr);
 		vector<Vertex> getVertexArray();
 		indoorgml::Point3D getNormal();
 		void setNormal();
 		int getBestFacePlaneTypeToProject();
-		indoorgml::Polygon getProjectedPolygon();
+		Polygon2D getProjectedPolygon();
+		void calculateVerticesNormals();
+		vector<Triangle> getTessellatedTriangles();
+		vector<Triangle> getTrianglesConvex();
+
 	};
 
 }

@@ -16,7 +16,7 @@ namespace geometry {
 		Vertex();
 		Vertex(indoorgml::Point3D position);
 		
-		void setNormal();
+		void setNormal(double x, double y, double z);
 		indoorgml::Point3D getNormal();
 		void setPosition(indoorgml::Point3D position);
 		indoorgml::Point3D getPosition();

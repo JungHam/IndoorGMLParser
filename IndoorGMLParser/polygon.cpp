@@ -3,7 +3,7 @@
 #include <assert.h>
 #include <stdexcept>
 #include <iostream>
-#include "polygon.h"
+#include "Polygon.h"
 #include "logger.h"
 namespace indoorgml {
 
@@ -55,6 +55,7 @@ namespace indoorgml {
 	}
 
 
+	/*
 	void Polygon::finish(bool optimize, std::shared_ptr<Logger> logger)
 	{
 		if (m_finished) {
@@ -65,6 +66,7 @@ namespace indoorgml {
 		m_finished = true;
 
 	}
+	*/
 
 	void Polygon::addRing(LinearRing* ring)
 	{
