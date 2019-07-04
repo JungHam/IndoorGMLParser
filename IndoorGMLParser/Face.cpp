@@ -38,6 +38,8 @@ namespace geometry {
 	}
 	indoorgml::Point3D Face::calculateNormal() {
 		indoorgml::Point3D result;
+		if (vertexArray.size() == 0)
+			return result;
 		for (int i = 0; i < vertexArray.size(); i++) {
 			int prevIndex;
 			indoorgml::Point3D startVec;
@@ -95,10 +97,13 @@ namespace geometry {
 		return type;
 	}
 	Polygon2D Face::getProjectedPolygon() {
-		Polygon2D result;
-		int type = getBestFacePlaneTypeToProject();
+		Polygon2D result;			
 		vector<geometry::Point2D>resultPoints2d;
 		Point2D tempPoint;
+
+		calculateNormal();
+		int type = getBestFacePlaneTypeToProject();
+		
 		if (type == 0) {
 			for (int i = 0; i < vertexArray.size(); i++) {
 				
@@ -209,8 +214,8 @@ namespace geometry {
 		Triangle t;
 		v0 = vertexArray.at(0);
 		for (int i = 1; i < vertexArray.size() - 1; i++) {
-			v1 = vertexArray.at(1);
-			v2 = vertexArray.at(2);
+			v1 = vertexArray.at(i);
+			v2 = vertexArray.at(i+1);
 			t = Triangle(v0, v1, v2);
 
 			result.push_back(t);

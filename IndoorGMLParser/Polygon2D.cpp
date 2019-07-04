@@ -119,7 +119,7 @@ namespace geometry {
 			}
 			double cosAlfa = scalaProd;
 			double alfa = acos(cosAlfa);
-			_normal += crossProd * alfa;
+			_normal += (crossProd * alfa);
 		}
 
 		if (_normal > 0) {
@@ -348,8 +348,10 @@ namespace geometry {
 		vector<Polygon2D>result;
 		if (concaveVerticesIndices.size() == 0) {
 			Polygon2D convexPolygon;
-			convexPolygon.setExterior(this->getExterior());
-			result.push_back(convexPolygon);
+			//convexPolygon.setExterior(this->getExterior());
+			//result.push_back(convexPolygon);
+			 
+			
 			return result;
 		}
 		bool find = false;
@@ -414,7 +416,7 @@ namespace geometry {
 				}
 
 			}
-
+			count++;
 
 		}
 		
