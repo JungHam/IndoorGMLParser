@@ -1,9 +1,13 @@
 #pragma once
 
+#define _USE_MATH_DEFINES
+
 #include <memory>
 #include <vector>
 #include <unordered_set>
 #include <unordered_map>
+#include <math.h>
+#include <algorithm>
 
 #include "LinearRing2D.h"
 #include "geometrymanager.h"
@@ -15,7 +19,7 @@
 class Tesselator;
 
 namespace geometry {
-
+	
 
 
 	// Get the vertices
@@ -127,6 +131,219 @@ namespace geometry {
 		return result;
 	}
 
+	vector<int> Polygon2D::getPointsIndexSortedByDistFromPoint(Point2D point) {
+		vector<int> result;
+		vector<pair<double, int>>distlist;
+
+		//거리 계산
+		for (int i = 0; i < m_vertices.size(); i++) {
+			if (point.isSame(m_vertices.at(i))) {
+				continue;
+			}
+			Point2D tempPoint = m_vertices.at(i);
+			double dist = sqrt(pow(point.x - tempPoint.x,2.0) + pow(point.y - tempPoint.y,2.0));
+			distlist.push_back(make_pair(dist,i));
+		}
+
+		sort(distlist.begin(),distlist.end());
+		
+		for (int i = 0; i < distlist.size(); i++) {
+			result.push_back(distlist.at(i).second);
+		}
+
+		return result;
+	}
+
+	bool Polygon2D::checkSharedPointsWithSegement(int seg1Index1, int seg1Index2, int seg2Index1, int seg2Index2) {
+		bool result = false;
+		if (m_vertices.at(seg1Index1).isSame(m_vertices.at(seg2Index1)) || m_vertices.at(seg1Index1).isSame(m_vertices.at(seg2Index2))) {
+			return true;
+		}
+		if (m_vertices.at(seg1Index2).isSame(m_vertices.at(seg2Index1)) || m_vertices.at(seg1Index2).isSame(m_vertices.at(seg2Index2))) {
+			return true;
+		}
+
+		return result;
+	}
+
+	bool Polygon2D::checkParallel(int seg1Index1, int seg1Index2, int seg2Index1, int seg2Index2) {
+		Point2D seg1P1 = m_vertices.at(seg1Index1);
+		Point2D seg1P2 = m_vertices.at(seg1Index2);
+
+		Point2D seg2P1 = m_vertices.at(seg2Index1);
+		Point2D seg2P2 = m_vertices.at(seg2Index2);
+
+		Point2D direct1 = Point2D(seg1P1.x-seg1P2.x,seg1P1.y-seg1P2.y);
+		direct1.unitary();
+		Point2D direct2 = Point2D(seg2P1.x - seg2P2.x, seg2P1.y - seg2P2.y);
+		direct2.unitary();
+
+		double zero = 10E-10;
+		double angRad = direct1.angleToVector(direct2);
+
+		if (angRad < zero || abs(angRad - M_PI) < zero) {
+			return true;
+		}
+		return false;
+	}
+
+	bool Polygon2D::isthePointIntersectWithSegment(Point2D segP1, Point2D segP2, Point2D thePoint) {
+		
+		double error = 10E-8;
+
+		double distA = segP1.distTo(thePoint);
+		double distB = segP2.distTo(thePoint);
+		double distTotal = segP1.distTo(segP2);
+
+		//if(distA < error)
+		//if(distB < error)
+		
+		if (abs(distA + distB - distTotal) < error) {
+			return true;
+		}
+		
+		return false;
+	
+	}
+
+	bool Polygon2D::isIntersectedWithSegment(int index1, int index2) { // index1, index2가 분할할 선분을 의미
+		bool result = false;
+
+		double error = 10E-8;
+		
+		for (int i = 0; i < m_vertices.size()-1; i++) {			
+			//check whether the segment overlapped to the other vertex or parrallel to the other.
+			if (checkSharedPointsWithSegement(index1, index2, i, i + 1) || checkParallel(index1, index2, i, i+1 )) {
+				continue;
+			}
+			
+
+			//calculate line equation
+			Point2D seg1P1 = m_vertices.at(i); //start point of segment1
+			Point2D seg1P2 = m_vertices.at(i+1);
+
+			Point2D seg2P1 = m_vertices.at(index1); //start point of segment2
+			Point2D seg2P2 = m_vertices.at(index2);
+
+			Point2D direct1 = Point2D(seg1P1.x - seg1P2.x, seg1P1.y - seg1P2.y);
+			direct1.unitary();
+			Point2D direct2 = Point2D(seg2P1.x - seg2P2.x, seg2P1.y - seg2P2.y);
+			direct2.unitary();
+
+			double zero = 10E-10;
+			
+			//get the candidate of intersection point
+			double intersectX;
+			double intersectY;
+
+			if (abs(direct1.x) < zero) {
+				double slope = direct2.y / direct2.x;
+				double b = seg2P1.y - slope * seg2P1.x;
+				intersectX = seg1P1.x;
+				intersectY = slope * intersectX + b;
+			}
+			else if (abs(direct1.y) < zero) {
+				if (abs(direct2.x) < zero) {
+					intersectX = seg2P1.x;
+					intersectY = seg1P1.y;
+				}
+				else {
+					double slope = direct2.y / direct2.x;
+					double b = seg2P1.y - slope * seg2P1.x;
+					intersectX = (seg1P1.y - b) / slope;
+					intersectY = seg1P1.y;
+
+				}
+			}
+			else {
+				if (abs(direct2.x) < zero) {
+					double mySlope = direct1.y / direct1.x;
+					double myB = seg1P1.y - mySlope * seg1P1.x;
+
+					intersectX = seg2P1.x;
+					intersectY = intersectX * mySlope + myB;
+				}
+				else {
+					double mySlope = direct1.y / direct1.x;
+					double myB = seg1P1.y - mySlope * seg1P1.x;
+
+					double slope = direct2.y / direct2.x;
+					double b = seg2P1.y - slope * seg2P1.x;
+
+					intersectX = (myB - b) / (slope - mySlope);
+					intersectY = slope * intersectX + b;
+				}
+			}
+
+			Point2D intersect(intersectX, intersectY);
+			//check the candidate is real intersection point
+			if (isthePointIntersectWithSegment(seg1P1, seg1P2, intersect) || isthePointIntersectWithSegment(seg2P1, seg2P2, intersect)) {
+				return true;
+			}
+
+		}
+
+		return result;
+	}
+	vector<Polygon2D> Polygon2D::splitPolygonbyIndex(int index1, int index2) {
+		vector<Polygon2D> result;
+		
+
+		Polygon2D first, second;
+
+		first.m_vertices.push_back(m_vertices.at(index1));
+		first.m_vertices.push_back(m_vertices.at(index2));
+
+		int count = 0;
+		int startIndex = index1;
+		int currIndex = index2;
+		while (count < m_vertices.size()) {
+			int nextIndex = currIndex + 1;
+			if (nextIndex == m_vertices.size()) {
+				nextIndex = 0;
+			}
+			if (nextIndex == startIndex) {
+				break;
+			}
+			else {
+				first.m_vertices.push_back(m_vertices.at(nextIndex));
+				currIndex = nextIndex;
+			}
+			count++;
+		}
+		result.push_back(first);
+
+		second.m_vertices.push_back(m_vertices.at(index2));
+		second.m_vertices.push_back(m_vertices.at(index1));
+
+		startIndex = index2;
+		currIndex = index1;
+		count = 0;
+
+		while (count < m_vertices.size()) {
+			int nextIndex = currIndex + 1;
+			if (nextIndex == startIndex) {
+				break;
+			}
+			else {
+				second.m_vertices.push_back(m_vertices.at(nextIndex));
+				currIndex = nextIndex;
+			}
+			count;
+
+		}
+		result.push_back(second);
+		return result;
+
+	}
+	double Polygon2D::getNormal() {
+		return _normal;
+	}
+
+	void Polygon2D::setVertices(vector<Point2D>l) {
+		m_vertices = l;
+		//if you need, set index of the verteces.
+	}
 	vector<Polygon2D> Polygon2D::tessellate(vector<int>concaveVerticesIndices) {
 		vector<Polygon2D>result;
 		if (concaveVerticesIndices.size() == 0) {
@@ -143,7 +360,7 @@ namespace geometry {
 			Point2D tempPoint = m_vertices.at(index);
 			vector<int>resultSortedPointsIdxArray;
 		
-			//resultSortedPointsIdxArray = getPointsIndexSortedByDistFromPoint(tempPoint);
+			resultSortedPointsIdxArray = getPointsIndexSortedByDistFromPoint(tempPoint);
 			
 			int count2 = 0;
 
@@ -160,9 +377,41 @@ namespace geometry {
 				}
 
 				//check intersection with the polygon and this pair(index-index2)
-				//if(intersectionWithSegment(index, index2)){count2++;countinue;}
-				//vector<Polygon2D> splittedPolygons = splitPolygon(index, index2);
-				//
+				if(isIntersectedWithSegment(index, index2)){
+					count2++;
+					continue;
+				}
+
+				vector<Polygon2D> splittedPolygons = splitPolygonbyIndex(index, index2);
+				
+				if (splittedPolygons.size() < 2) { 
+					count2++;
+					continue;
+				}
+
+				Polygon2D first = splittedPolygons.at(0);
+				Polygon2D second = splittedPolygons.at(1);
+
+				vector<int>firstConcavePointsIndex = first.calculateNormal();
+				vector<int>secondConcavePointsIndex = second.calculateNormal();
+
+				if (first.getNormal() == getNormal() && second.getNormal() == getNormal()) {
+					find = true;
+					
+					if (firstConcavePointsIndex.size() > 0) {
+						result = first.tessellate(firstConcavePointsIndex);
+					}
+					else {
+						result.push_back(first);
+					}
+
+					if (secondConcavePointsIndex.size() > 0) {
+						result = second.tessellate(secondConcavePointsIndex);
+					}
+					else {
+						result.push_back(second);
+					}
+				}
 
 			}
 

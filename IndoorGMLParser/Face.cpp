@@ -5,10 +5,21 @@
 #include "point3d.h"
 #include "Point2D.h"
 #include "Polygon2D.h"
+#include "LinearRing.h"
 using namespace std;
 
 namespace geometry {
+	void Face::convertFromPolygon(shared_ptr<indoorgml::Polygon> p) {
+		shared_ptr<indoorgml::LinearRing> ext = p->getExterior();
 
+		for (int i = 0; i < ext->getVertices().size(); i++) {
+			indoorgml::Point3D p3 = ext->getVertices().at(i);
+			Vertex v;
+			v.setPosition(p3);
+			v.setVertexIndex(i);
+			addVertex(v);
+		}
+	}
 	void Face::setVertexArray(vector<geometry::Vertex> arr) {
 		vertexArray = arr;
 	}
@@ -87,39 +98,55 @@ namespace geometry {
 		Polygon2D result;
 		int type = getBestFacePlaneTypeToProject();
 		vector<geometry::Point2D>resultPoints2d;
+		Point2D tempPoint;
 		if (type == 0) {
 			for (int i = 0; i < vertexArray.size(); i++) {
+				
 				if (_normal.z > 0) {
-					resultPoints2d.push_back(geometry::Point2D(vertexArray.at(i).getPosition().x, vertexArray.at(i).getPosition().y));
+					tempPoint = geometry::Point2D(vertexArray.at(i).getPosition().x, vertexArray.at(i).getPosition().y);
+					tempPoint.originalPoint = vertexArray.at(i).getPosition();
+					resultPoints2d.push_back(tempPoint);
 				}
 				else {
-					resultPoints2d.push_back(geometry::Point2D(vertexArray.at(i).getPosition().x, -vertexArray.at(i).getPosition().y));
+					tempPoint = geometry::Point2D(vertexArray.at(i).getPosition().x, -vertexArray.at(i).getPosition().y);
+					tempPoint.originalPoint = vertexArray.at(i).getPosition();
+					resultPoints2d.push_back(tempPoint);
+					
 				}
 			}
 		}
 		else if (type == 1) {
 			for (int i = 0; i < vertexArray.size(); i++) {
 				if (_normal.x > 0) {
-					resultPoints2d.push_back(geometry::Point2D(vertexArray.at(i).getPosition().y, vertexArray.at(i).getPosition().z));
+					tempPoint = geometry::Point2D(vertexArray.at(i).getPosition().y, vertexArray.at(i).getPosition().z);
+					tempPoint.originalPoint = vertexArray.at(i).getPosition();
+					resultPoints2d.push_back(tempPoint);
 				}
 				else {
-					resultPoints2d.push_back(geometry::Point2D(-vertexArray.at(i).getPosition().y, vertexArray.at(i).getPosition().z));
+					tempPoint = geometry::Point2D(-vertexArray.at(i).getPosition().y, vertexArray.at(i).getPosition().z);
+					tempPoint.originalPoint = vertexArray.at(i).getPosition();
+					resultPoints2d.push_back(tempPoint);
 				}
 			}
 		}
 		else if (type == 2) {
 			for (int i = 0; i < vertexArray.size(); i++) {
 				if (_normal.y > 0) {
-					resultPoints2d.push_back(geometry::Point2D(-vertexArray.at(i).getPosition().x, vertexArray.at(i).getPosition().z));
+					tempPoint = geometry::Point2D(-vertexArray.at(i).getPosition().x, vertexArray.at(i).getPosition().z);
+					tempPoint.originalPoint = vertexArray.at(i).getPosition();
+					resultPoints2d.push_back(tempPoint);
 				}
 				else {
-					resultPoints2d.push_back(geometry::Point2D(vertexArray.at(i).getPosition().x, vertexArray.at(i).getPosition().z));
+					tempPoint = geometry::Point2D(vertexArray.at(i).getPosition().x, vertexArray.at(i).getPosition().z);
+					tempPoint.originalPoint = vertexArray.at(i).getPosition();
+					resultPoints2d.push_back(tempPoint);
 				}
 			}
 		}
-		shared_ptr<geometry::LinearRing2D> ext;
-		ext->setVertices(resultPoints2d);
-		result.setExterior(ext);
+		//shared_ptr<geometry::LinearRing2D> ext;
+		//ext->setVertices(resultPoints2d);
+		//result.setExterior(ext);
+		result.setVertices(resultPoints2d);
 		return result;
 	}
 
@@ -138,19 +165,57 @@ namespace geometry {
 		vector<Triangle> result;
 		if (vertexArray.size() <= 3) {
 			result = getTrianglesConvex();
+			
 			return result;
 		}
 
 		Polygon2D temppoly = getProjectedPolygon();
+		vector<int>concavePointIndexList = temppoly.calculateNormal();
+		vector<Polygon2D> convexPolygonList = temppoly.tessellate(concavePointIndexList);
 
-		//vector<Point2D>convexPoint = temppoly.calculateNormal();
-		
+		for (int i = 0; i < convexPolygonList.size(); i++) {
+			Polygon2D tempConvexPolygon = convexPolygonList.at(i);
+
+			if (tempConvexPolygon.getVertices().size() == 0)
+				continue;
+			Vertex v0, v1, v2;
+			Triangle t;
+			Point2D p0, p1, p2;
+			p0 = tempConvexPolygon.getVertices().at(0);
+			v0 = p0.originalPoint;
+			for (int j = 1; j < tempConvexPolygon.getVertices().size() - 1; j++) {
+				p1 = tempConvexPolygon.getVertices().at(j);
+				p2 = tempConvexPolygon.getVertices().at(j + 1);
+				v1 = p1.originalPoint;
+				v2 = p2.originalPoint;
+
+				t = Triangle(v0, v1, v2);
+				result.push_back(t);
+			}
+
+		}
+		return result;
 	}
 	Face::Face() {
 		hasNormalValue = false;
 	}
 	vector<Triangle> Face::getTrianglesConvex() {
 		vector<Triangle> result;
+
+		if (vertexArray.size() == 0)
+			return result;
+
+		Vertex v0, v1, v2;
+		Triangle t;
+		v0 = vertexArray.at(0);
+		for (int i = 1; i < vertexArray.size() - 1; i++) {
+			v1 = vertexArray.at(1);
+			v2 = vertexArray.at(2);
+			t = Triangle(v0, v1, v2);
+
+			result.push_back(t);
+		}
+
 		return result;
 	}
 }	

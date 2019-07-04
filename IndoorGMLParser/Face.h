@@ -27,6 +27,7 @@ namespace geometry {
 		void calculateVerticesNormals();
 		vector<Triangle> getTessellatedTriangles();
 		vector<Triangle> getTrianglesConvex();
+		void convertFromPolygon(shared_ptr<indoorgml::Polygon> p);
 
 	};
 

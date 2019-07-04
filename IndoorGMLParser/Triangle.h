@@ -16,6 +16,8 @@ namespace geometry {
 		indoorgml::Point3D _normal;
 		
 	public:
+		Triangle();
+		Triangle(Vertex v1, Vertex v2, Vertex v3);
 		void setVertices(Vertex v1, Vertex v2, Vertex v3);
 		void assignVerticesIdx();
 		int* getIndicesArray();

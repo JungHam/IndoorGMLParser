@@ -1,6 +1,14 @@
 #include "Triangle.h"
 
 namespace geometry { 
+
+	Triangle::Triangle() {}
+	Triangle::Triangle(Vertex v1, Vertex v2, Vertex v3) {
+		vertex0 = v1;
+		vertex1 = v2;
+		vertex2 = v3;
+	}
+
 	void Triangle::setVertices(Vertex v1, Vertex v2, Vertex v3) {
 		vertex0 = v1;
 		vertex1 = v2;

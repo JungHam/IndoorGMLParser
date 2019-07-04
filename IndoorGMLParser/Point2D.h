@@ -36,16 +36,19 @@ namespace geometry {
 
 		Point2D operator/(const Point2D& rhs) const;
 		Point2D operator/(const double rhs) const;
-		double Point2D::cross(const Point2D& vec) const;
-		double Point2D::scalar(const Point2D& vec) const;
+		double cross(const Point2D& vec) const;
+		double scalar(const Point2D& vec) const;
+		double angleToVector(Point2D vector) const;
 		inline bool operator==(const Point2D& rhs) const;
+		inline bool operator==(Point2D rhs);
 		inline bool operator!=(const Point2D& rhs) const;
 
 		inline operator double*() { return xy; }
 		inline operator const double*() const { return xy; }
 
 		void unitary();
-
+		double distTo(Point2D target);
+		bool isSame(Point2D target);
 	};
 
 

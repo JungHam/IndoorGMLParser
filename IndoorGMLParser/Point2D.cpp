@@ -102,6 +102,11 @@ namespace geometry {
 		return x == rhs.x && y == rhs.y;
 	}
 
+	inline bool Point2D::operator==(Point2D rhs)
+	{
+		return x == rhs.x && y == rhs.y;
+	}
+
 	inline bool Point2D::operator!=(const Point2D& rhs) const
 	{
 		return x != rhs.x || y != rhs.y;
@@ -123,13 +128,36 @@ namespace geometry {
 		x = x / module;
 		y = y / module;
 	}
-
+	Point2D::Point2D() {
+		x = 0;
+		y = 0;
+	}
 	double Point2D::scalar(const Point2D& vec) const {
 		return x * vec.x + y * vec.y;
 	}
 
 	double Point2D::cross(const Point2D& vec)const{
 		return x*vec.y - y*vec.x;
+	}
+
+	double Point2D::angleToVector(Point2D vector) const{
+
+		double module1 = sqrt(x*x + y*y);
+		double module2 = sqrt(vector.x*vector.x + vector.y * vector.y);
+
+		double error = 10E-10;
+		if (module1 < error || module2 < error) {
+			//fail 
+		}
+
+		return acos(scalar(vector)/module1*module2);
+		
+	}
+	double Point2D::distTo(Point2D target) {
+		return sqrt(pow(x-target.x,2.0)+pow(y-target.y,2.0));
+	}
+	bool Point2D::isSame(Point2D target) {
+		return x == target.x && y == target.y;
 	}
 }
 
