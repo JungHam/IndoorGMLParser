@@ -19,10 +19,14 @@
 #include "linearring.h"
 #include "point3d.h"
 #include "geometryparser.h"
+#include "Polygon2D.h"
+#include "Point2D.h"
+#include "Triangle.h"
 
 using namespace std;
 using namespace xercesc;
 using namespace util;
+using namespace geometry;
 
 int readDocument(const char* xmlFile){
 	try {
@@ -146,7 +150,26 @@ int readDocument(const char* xmlFile){
 int main(int argc, char* args[])
 {
 
-	const char * xmlFile = "../samples/seouluniv21centry.gml";
-	readDocument(xmlFile);
+	//const char * xmlFile = "../samples/seouluniv21centry.gml";
+	//readDocument(xmlFile);
+	vector<geometry::Point2D>testPoints;
+	testPoints.push_back(geometry::Point2D(0, 0));
+	testPoints.push_back(geometry::Point2D(2, 0));
+	testPoints.push_back(geometry::Point2D(2, 1));
+	testPoints.push_back(geometry::Point2D(1, 1));
+	testPoints.push_back(geometry::Point2D(1, 2));
+	testPoints.push_back(geometry::Point2D(0, 2));
+
+	geometry::Polygon2D testPolygon;
+	testPolygon.setVertices(testPoints);
+	
+	vector<int>concaveVerticesIndices = testPolygon.calculateNormal();
+	//vector<geometry::Polygon2D>result;
+	//result.at(0);
+
+	vector<Polygon2D>result = testPolygon.tessellate(concaveVerticesIndices);
+	
+	
+
 }
 

@@ -322,6 +322,9 @@ namespace geometry {
 
 		while (count < m_vertices.size()) {
 			int nextIndex = currIndex + 1;
+			if (nextIndex == m_vertices.size()) {
+				nextIndex = 0;
+			}
 			if (nextIndex == startIndex) {
 				break;
 			}
@@ -367,7 +370,9 @@ namespace geometry {
 			int count2 = 0;
 
 			while (!find && count2 < resultSortedPointsIdxArray.size()) {
+
 				index2 = resultSortedPointsIdxArray.at(count2);
+
 				int prevIndex = index - 1;
 				if (prevIndex < 0)
 					prevIndex = resultSortedPointsIdxArray.size() - 1;
@@ -414,7 +419,7 @@ namespace geometry {
 						result.push_back(second);
 					}
 				}
-
+				count2++;
 			}
 			count++;
 
