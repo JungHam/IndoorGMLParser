@@ -21,7 +21,7 @@ namespace geometry {
 
 	}
 	int* Triangle::getIndicesArray() {
-		int arr[3];
+		int* arr = new int[3];
 		arr[0] = vertexIdx0;
 		arr[1] = vertexIdx1;
 		arr[2] = vertexIdx2;

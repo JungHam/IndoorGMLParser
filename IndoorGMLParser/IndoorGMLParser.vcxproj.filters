@@ -13,6 +13,12 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Header Files\tessellate">
+      <UniqueIdentifier>{2fad26a8-421a-4576-be8b-bef1b8bb2dec}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\tessellate">
+      <UniqueIdentifier>{413e39a8-153f-4d79-a388-3920332c55cd}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -25,9 +31,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="AbstractFeatures.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="polygon.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="linestring.h">
@@ -57,35 +60,35 @@
     <ClInclude Include="linearring.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="templatePoint3d.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="templatePoint3d.cpp">
-      <Filter>Source Files</Filter>
-    </ClInclude>
     <ClInclude Include="geometryparser.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Face.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Vertex.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Point2D.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="point3d.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Polygon2D.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="LinearRing2D.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Vertex.h">
+      <Filter>Header Files\tessellate</Filter>
+    </ClInclude>
     <ClInclude Include="Triangle.h">
+      <Filter>Header Files\tessellate</Filter>
+    </ClInclude>
+    <ClInclude Include="Polygon2D.h">
+      <Filter>Header Files\tessellate</Filter>
+    </ClInclude>
+    <ClInclude Include="Point2D.h">
+      <Filter>Header Files\tessellate</Filter>
+    </ClInclude>
+    <ClInclude Include="Face.h">
+      <Filter>Header Files\tessellate</Filter>
+    </ClInclude>
+    <ClInclude Include="polygon.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="tessellator.h">
+      <Filter>Header Files\tessellate</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -96,9 +99,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="AbstractFeatures.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="polygon.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="geometrymanager.cpp">
@@ -122,26 +122,29 @@
     <ClCompile Include="geometryparser.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="tessellater.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Face.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Point2D.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Polygon2D.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="LinearRing2D.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Vertex.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="Polygon2D.cpp">
+      <Filter>Source Files\tessellate</Filter>
+    </ClCompile>
+    <ClCompile Include="polygon.cpp">
+      <Filter>Source Files\tessellate</Filter>
+    </ClCompile>
+    <ClCompile Include="Point2D.cpp">
+      <Filter>Source Files\tessellate</Filter>
+    </ClCompile>
+    <ClCompile Include="Face.cpp">
+      <Filter>Source Files\tessellate</Filter>
     </ClCompile>
     <ClCompile Include="Triangle.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\tessellate</Filter>
+    </ClCompile>
+    <ClCompile Include="Vertex.cpp">
+      <Filter>Source Files\tessellate</Filter>
+    </ClCompile>
+    <ClCompile Include="tessellator.cpp">
+      <Filter>Source Files\tessellate</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

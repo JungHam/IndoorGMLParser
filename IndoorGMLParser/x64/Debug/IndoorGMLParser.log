@@ -1,5 +1,17 @@
 ﻿  Face.cpp
-d:\git\indoorgmlparser\indoorgmlparser\face.cpp(35): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
-d:\git\indoorgmlparser\indoorgmlparser\face.cpp(148): warning C4715: 'geometry::Face::getTessellatedTriangles': not all control paths return a value
-  IndoorGMLParser.vcxproj -> D:\git\IndoorGMLParser\x64\Debug\IndoorGMLParser.exe
-  IndoorGMLParser.vcxproj -> D:\git\IndoorGMLParser\x64\Debug\IndoorGMLParser.pdb (Full PDB)
+d:\git\indoorgmlparser\indoorgmlparser\polygon.h(45): error C2039: 'Face': is not a member of 'geometry'
+  d:\git\indoorgmlparser\indoorgmlparser\polygon2d.h(18): note: see declaration of 'geometry'
+d:\git\indoorgmlparser\indoorgmlparser\polygon.h(45): error C3646: 'convertToFace': unknown override specifier
+d:\git\indoorgmlparser\indoorgmlparser\polygon.h(45): error C2059: syntax error: '('
+d:\git\indoorgmlparser\indoorgmlparser\polygon.h(45): error C2238: unexpected token(s) preceding ';'
+d:\git\indoorgmlparser\indoorgmlparser\face.cpp(48): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+  Generating Code...
+  Compiling...
+  IndoorGMLFactory.cpp
+  Generating Code...
+  Skipping... (no relevant changes detected)
+  tessellator.cpp
+  polygon.cpp
+  geometryparser.cpp
+  geometrymanager.cpp
+  IndoorGMLParser.cpp

@@ -5,6 +5,8 @@
 #include <iostream>
 #include "Polygon.h"
 #include "logger.h"
+#include "Face.h"
+#include "Vertex.h"
 namespace indoorgml {
 
 	Polygon::Polygon(string id) : AbstractFeatures(id)
@@ -26,7 +28,19 @@ namespace indoorgml {
 		return m_indices;
 	}
 
+	geometry::Face Polygon::convertToFace() {
+		shared_ptr<indoorgml::LinearRing> ext = getExterior();
+		geometry::Face result;
+		for (int i = 0; i < ext->getVertices().size(); i++) {
+			indoorgml::Point3D p3 = ext->getVertices().at(i);
+			geometry::Vertex v;
+			v.setPosition(p3);
+			v.setVertexIndex(i);
+			result.addVertex(v);
+		}
 
+		return result;
+	}
 
 	/*
 	Point3D Polygon::computeNormal()

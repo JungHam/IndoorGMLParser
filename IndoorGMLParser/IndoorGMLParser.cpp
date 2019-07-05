@@ -116,6 +116,9 @@ int readDocument(const char* xmlFile){
 
 		cout << geomManager.getSolidsCount();
 
+
+
+
 		delete parser;
 		delete errHandler;
 		delete parseHelper;

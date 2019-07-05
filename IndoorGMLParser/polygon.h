@@ -11,7 +11,8 @@
 #include "geometrymanager.h"
 #include "logger.h"
 #include "Point3D.h"
-
+#include "Face.h"
+#include "Vertex.h"
 class Tesselator;
 
 namespace indoorgml {
@@ -40,23 +41,10 @@ namespace indoorgml {
 
 		//void finish(bool optimize, std::shared_ptr<Logger> logger);
 
-		std::shared_ptr<indoorgml::LinearRing> exteriorRing() {
-			return m_exteriorRing;
-		}
 
-		const std::shared_ptr<indoorgml::LinearRing> exteriorRing() const {
-			return m_exteriorRing;
-		}
-
-		std::vector<std::shared_ptr<indoorgml::LinearRing> >& interiorRings() {
-			return m_interiorRings;
-		}
-
-		const std::vector<std::shared_ptr<indoorgml::LinearRing> >& interiorRings() const {
-			return m_interiorRings;
-		}
-		void Polygon::setExterior(shared_ptr<indoorgml::LinearRing> l);
-		shared_ptr<indoorgml::LinearRing> Polygon::getExterior();
+		geometry::Face convertToFace();
+		void setExterior(shared_ptr<indoorgml::LinearRing> l);
+		shared_ptr<indoorgml::LinearRing> getExterior();
 		Polygon(string id);
 
 		virtual ~Polygon();
