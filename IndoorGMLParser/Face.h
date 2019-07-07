@@ -4,7 +4,7 @@
 #include "Vertex.h"
 #include "Point3d.h"
 #include "Polygon2D.h"
-#include "Polygon.h"
+
 #include "Triangle.h"
 
 using namespace std;
@@ -27,7 +27,7 @@ namespace geometry {
 		void calculateVerticesNormals();
 		vector<Triangle> getTessellatedTriangles();
 		vector<Triangle> getTrianglesConvex();
-		void convertFromPolygon(shared_ptr<indoorgml::Polygon> p);
+		//void convertFromPolygon(shared_ptr<indoorgml::Polygon> p);
 
 	};
 

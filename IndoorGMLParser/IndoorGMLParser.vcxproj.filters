@@ -128,9 +128,6 @@
     <ClCompile Include="Polygon2D.cpp">
       <Filter>Source Files\tessellate</Filter>
     </ClCompile>
-    <ClCompile Include="polygon.cpp">
-      <Filter>Source Files\tessellate</Filter>
-    </ClCompile>
     <ClCompile Include="Point2D.cpp">
       <Filter>Source Files\tessellate</Filter>
     </ClCompile>
@@ -145,6 +142,9 @@
     </ClCompile>
     <ClCompile Include="tessellator.cpp">
       <Filter>Source Files\tessellate</Filter>
+    </ClCompile>
+    <ClCompile Include="polygon.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

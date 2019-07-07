@@ -13,15 +13,10 @@
 #include "Point3D.h"
 #include "Face.h"
 #include "Vertex.h"
-class Tesselator;
 
+using namespace geometry;
 namespace indoorgml {
 
-
-
-	/**
-	* @brief The Polygon class implements the functionality of gml::Polygon and gml::SurfacePatch (gml::Rectangle, gml::Triangle) objects
-	*/
 	class Polygon : public indoorgml::AbstractFeatures
 	{
 	
@@ -39,10 +34,7 @@ namespace indoorgml {
 
 		void addRing(indoorgml::LinearRing*);
 
-		//void finish(bool optimize, std::shared_ptr<Logger> logger);
-
-
-		geometry::Face convertToFace();
+		geometry::Face convertFromPolygonToFace();
 		void setExterior(shared_ptr<indoorgml::LinearRing> l);
 		shared_ptr<indoorgml::LinearRing> getExterior();
 		Polygon(string id);
@@ -51,14 +43,6 @@ namespace indoorgml {
 
 	protected:
 		//Polygon(const std::string& id);
-
-
-		/**
-		* @brief fill the vertex array and creates a corresponding index array
-		* @param tesselate if true the tesselator will be used to tesselate the linear rings
-		* @param tesselator the Tesselator object
-		*/
-		//void computeIndices(Tesselator& tesselator, std::shared_ptr<Logger> logger);
 
 		
 		std::vector<indoorgml::Point3D> m_vertices;

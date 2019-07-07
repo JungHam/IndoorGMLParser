@@ -28,7 +28,7 @@ namespace indoorgml {
 		return m_indices;
 	}
 
-	geometry::Face Polygon::convertToFace() {
+	geometry::Face Polygon::convertFromPolygonToFace() {
 		shared_ptr<indoorgml::LinearRing> ext = getExterior();
 		geometry::Face result;
 		for (int i = 0; i < ext->getVertices().size(); i++) {

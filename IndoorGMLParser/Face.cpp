@@ -9,17 +9,7 @@
 using namespace std;
 
 namespace geometry {
-	void Face::convertFromPolygon(shared_ptr<indoorgml::Polygon> p) {
-		shared_ptr<indoorgml::LinearRing> ext = p->getExterior();
 
-		for (int i = 0; i < ext->getVertices().size(); i++) {
-			indoorgml::Point3D p3 = ext->getVertices().at(i);
-			Vertex v;
-			v.setPosition(p3);
-			v.setVertexIndex(i);
-			addVertex(v);
-		}
-	}
 	void Face::setVertexArray(vector<geometry::Vertex> arr) {
 		vertexArray = arr;
 	}
@@ -223,4 +213,17 @@ namespace geometry {
 
 		return result;
 	}
+	/*
+	void Face::convertFromPolygon(shared_ptr<indoorgml::Polygon> p) {
+		shared_ptr<indoorgml::LinearRing> ext = p->getExterior();
+
+		for (int i = 0; i < ext->getVertices().size(); i++) {
+			indoorgml::Point3D p3 = ext->getVertices().at(i);
+			Vertex v;
+			v.setPosition(p3);
+			v.setVertexIndex(i);
+			addVertex(v);
+		}
+	}
+	*/
 }	

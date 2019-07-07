@@ -41,7 +41,8 @@ namespace indoorgml {
 
 		inline operator double*() { return xyz; }
 		inline operator const double*() const { return xyz; }
-
+		void unitary();
+		double Point3D::scalar(const Point3D& vec) const;
 
 	};
 	
