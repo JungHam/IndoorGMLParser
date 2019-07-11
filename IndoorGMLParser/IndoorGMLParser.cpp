@@ -23,12 +23,58 @@
 #include "Point2D.h"
 #include "Triangle.h"
 
+
 using namespace std;
 using namespace xercesc;
 using namespace util;
 using namespace geometry;
 
-int readDocument(const char* xmlFile){
+vector<geometry::Triangle> tessellate(shared_ptr<indoorgml::Polygon> p) {
+	vector<geometry::Triangle> result;
+	Face f = p->convertFromPolygonToFace();
+	result = f.getTessellatedTriangles();
+	return result;
+}
+
+
+vector<geometry::Triangle> tessellate(indoorgml::Polygon p) {
+	vector<geometry::Triangle> result;
+	Face f = p.convertFromPolygonToFace();
+	result = f.getTessellatedTriangles();
+	return result;
+}
+
+vector<geometry::Triangle> tessellate(indoorgml::Solid s) {
+	vector<geometry::Triangle> result;
+
+	vector<shared_ptr<indoorgml::Polygon>> exterior = s.getExterior();
+
+	for (int i = 0; i < exterior.size(); i++) {
+		vector<geometry::Triangle>temp;
+		Face f = exterior.at(i)->convertFromPolygonToFace();
+		temp = f.getTessellatedTriangles();
+		result.insert(result.end(), temp.begin(), temp.end());
+	}
+
+	return result;
+}
+
+vector<geometry::Triangle> tessellate(shared_ptr<indoorgml::Solid> s) {
+	vector<geometry::Triangle> result;
+
+	vector<shared_ptr<indoorgml::Polygon>> exterior = s->getExterior();
+
+	for (int i = 0; i < exterior.size(); i++) {
+		vector<geometry::Triangle>temp;
+		Face f = exterior.at(i)->convertFromPolygonToFace();
+		temp = f.getTessellatedTriangles();
+		result.insert(result.end(), temp.begin(), temp.end());
+	}
+
+	return result;
+}
+
+int readDocument(const char* xmlFile, vector<geometry::Triangle>&result){
 	try {
 		XMLPlatformUtils::Initialize();
 		XercesDOMParser* parser = new XercesDOMParser();
@@ -45,7 +91,7 @@ int readDocument(const char* xmlFile){
 		cout << xmlFile << ": parse OK" << endl;
 		DOMDocument* dom = parser->getDocument();
 		DOMElement* rootNode = dom->getDocumentElement();
-		//cout << XMLString::transcode(rootNode->getTagName()) << endl;
+		cout << XMLString::transcode(rootNode->getTagName()) << endl;
 		DOMNodeList* rootChild = rootNode->getChildNodes();
 
 		DOMNode* primalSpaceFeatures = 0;
@@ -85,7 +131,7 @@ int readDocument(const char* xmlFile){
 				if (parseHelper->isMatchedNodeName(cellSpace->getChildNodes()->item(j), "core:cellSpaceGeometry")) {
 					solidList.push_back(cellSpace->getChildNodes()->item(j)->getChildNodes()->item(1)->getChildNodes()->item(1));
 				}
-
+			
 			}
 		}
 
@@ -116,13 +162,24 @@ int readDocument(const char* xmlFile){
 
 		cout << geomManager.getSolidsCount();
 
+		vector<geometry::Triangle>tessellatedResult;
 
+		for (int i = 0; i < geomManager.getSolidsCount(); i++) {
+			vector<geometry::Triangle>temp = tessellate(geomManager.getSolid(i));
+			tessellatedResult.insert(tessellatedResult.end(),temp.begin(),temp.end());
+		}
 
+		for (int i = 0; i < geomManager.getPolygonsCount(); i++) {
+			vector<geometry::Triangle> temp = tessellate(geomManager.getPolygon(i));
+			tessellatedResult.insert(tessellatedResult.end(),temp.begin(),temp.end());
+		}
 
 		delete parser;
 		delete errHandler;
 		delete parseHelper;
 		XMLPlatformUtils::Terminate();
+		result = tessellatedResult;
+
 	}
 	catch (const XMLException& toCatch) {
 		char* message = XMLString::transcode(toCatch.getMessage());
@@ -150,11 +207,11 @@ int readDocument(const char* xmlFile){
 
 }
 
+
+
 int main(int argc, char* args[])
 {
-
-	//const char * xmlFile = "../samples/seouluniv21centry.gml";
-	//readDocument(xmlFile);
+	/*
 	vector<geometry::Point2D>testPoints;
 	testPoints.push_back(geometry::Point2D(0, 0));
 	testPoints.push_back(geometry::Point2D(2, 0));
@@ -165,14 +222,21 @@ int main(int argc, char* args[])
 
 	geometry::Polygon2D testPolygon;
 	testPolygon.setVertices(testPoints);
-	
+
 	vector<int>concaveVerticesIndices = testPolygon.calculateNormal();
 	//vector<geometry::Polygon2D>result;
 	//result.at(0);
 
 	vector<Polygon2D>result = testPolygon.tessellate(concaveVerticesIndices);
-	
-	
+	cout << result.size() << endl;
+
+	*/
+	const char * xmlFile = "../samples/sampleIndoorGML.gml";
+	vector<geometry::Triangle>result;
+	readDocument(xmlFile, result);
+
+	cout << result.size();
+
+
 
 }
-

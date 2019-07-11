@@ -20,6 +20,10 @@ namespace indoorgml {
 		return m_polygons.at(i);
 	}
 
+	std::shared_ptr<Solid> GeometryManager::getSolid(unsigned int i) {
+		return m_solids.at(i);
+	}
+
 	std::shared_ptr<const Polygon> GeometryManager::getPolygon(unsigned int i) const
 	{
 		return m_polygons.at(i);

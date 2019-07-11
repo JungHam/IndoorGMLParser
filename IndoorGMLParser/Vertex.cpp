@@ -11,6 +11,7 @@ namespace geometry {
 		_normal = indoorgml::Point3D(x,y,z);
 	}
 	indoorgml::Point3D Vertex::getNormal() {
+
 		return _normal;
 	}
 	void Vertex::setPosition(indoorgml::Point3D position) {

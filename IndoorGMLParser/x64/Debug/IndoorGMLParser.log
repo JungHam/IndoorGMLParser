@@ -1,32 +1,3 @@
-﻿  stdafx.cpp
-  Vertex.cpp
-  Triangle.cpp
-  tessellator.cpp
-  Solid.cpp
-  Polygon2D.cpp
-c:\users\jungh\바탕 화면\indoorgmlparser\indoorgmlparser\polygon2d.cpp(76): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-c:\users\jungh\바탕 화면\indoorgmlparser\indoorgmlparser\polygon2d.cpp(93): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
-c:\users\jungh\바탕 화면\indoorgmlparser\indoorgmlparser\polygon2d.cpp(378): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
-  polygon.cpp
-  point3d.cpp
-  Point2D.cpp
-  parserutil.cpp
-  LinearRing2D.cpp
-c:\users\jungh\바탕 화면\indoorgmlparser\indoorgmlparser\linearring2d.cpp(21): warning C4267: 'return': conversion from 'size_t' to 'unsigned int', possible loss of data
-  linearring.cpp
-c:\users\jungh\바탕 화면\indoorgmlparser\indoorgmlparser\linearring.cpp(24): warning C4267: 'return': conversion from 'size_t' to 'unsigned int', possible loss of data
-  IndoorGMLParser.cpp
-  IndoorGMLFactory.cpp
-  geometryparser.cpp
-  geometrymanager.cpp
-c:\users\jungh\바탕 화면\indoorgmlparser\indoorgmlparser\geometrymanager.cpp(15): warning C4267: 'return': conversion from 'size_t' to 'unsigned int', possible loss of data
-c:\users\jungh\바탕 화면\indoorgmlparser\indoorgmlparser\geometrymanager.cpp(30): warning C4267: 'return': conversion from 'size_t' to 'unsigned int', possible loss of data
-c:\users\jungh\바탕 화면\indoorgmlparser\indoorgmlparser\geometrymanager.cpp(45): warning C4267: 'return': conversion from 'size_t' to 'unsigned int', possible loss of data
-c:\users\jungh\바탕 화면\indoorgmlparser\indoorgmlparser\geometrymanager.cpp(61): warning C4267: 'return': conversion from 'size_t' to 'unsigned int', possible loss of data
-c:\users\jungh\바탕 화면\indoorgmlparser\indoorgmlparser\geometrymanager.cpp(108): warning C4267: '+=': conversion from 'size_t' to 'unsigned int', possible loss of data
-  Face.cpp
-c:\users\jungh\바탕 화면\indoorgmlparser\indoorgmlparser\face.cpp(38): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
-  AbstractFeatures.cpp
-  Generating Code...
-  IndoorGMLParser.vcxproj -> C:\Users\jungh\바탕 화면\IndoorGMLParser\x64\Debug\IndoorGMLParser.exe
-  IndoorGMLParser.vcxproj -> C:\Users\jungh\바탕 화면\IndoorGMLParser\x64\Debug\IndoorGMLParser.pdb (Full PDB)
+﻿  Point2D.cpp
+  IndoorGMLParser.vcxproj -> D:\git\IndoorGMLParser\x64\Debug\IndoorGMLParser.exe
+  IndoorGMLParser.vcxproj -> D:\git\IndoorGMLParser\x64\Debug\IndoorGMLParser.pdb (Full PDB)

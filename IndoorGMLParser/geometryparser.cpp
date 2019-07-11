@@ -27,6 +27,7 @@ namespace util {
 		else if (parseHelper->hasNamedChild(l, "gml:posList")) {
 			//TODO: 
 		}
+		result->getVertices().pop_back();
 		return result;
 	}
 

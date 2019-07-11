@@ -31,7 +31,7 @@ namespace geometry {
 		if (vertexArray.size() == 0)
 			return result;
 		for (int i = 0; i < vertexArray.size(); i++) {
-			int prevIndex;
+			int prevIndex, nextIndex;
 			indoorgml::Point3D startVec;
 			indoorgml::Point3D endVec;
 			if (i == 0) {
@@ -40,8 +40,12 @@ namespace geometry {
 			else {
 				prevIndex = i - 1;
 			}
-			startVec = vertexArray.at(prevIndex).getNormal();
-			endVec = vertexArray.at(i).getNormal();
+			nextIndex = i + 1;
+			if (nextIndex == vertexArray.size()) {
+				nextIndex = 0;
+			}
+			startVec = vertexArray.at(i).getPosition() - vertexArray.at(prevIndex).getPosition();
+			endVec = vertexArray.at(nextIndex).getPosition() - vertexArray.at(i).getPosition();
 
 			startVec.unitary();
 			endVec.unitary();
@@ -65,6 +69,7 @@ namespace geometry {
 		}
 		result.unitary();
 		hasNormalValue = true;
+		_normal = result;
 		return result;
 	}
 	int Face::getBestFacePlaneTypeToProject() {
@@ -103,7 +108,8 @@ namespace geometry {
 					resultPoints2d.push_back(tempPoint);
 				}
 				else {
-					tempPoint = geometry::Point2D(vertexArray.at(i).getPosition().x, -vertexArray.at(i).getPosition().y);
+					tempPoint.x = vertexArray.at(i).getPosition().x;
+					tempPoint.y = -1 * (vertexArray.at(i).getPosition().y);
 					tempPoint.originalPoint = vertexArray.at(i).getPosition();
 					resultPoints2d.push_back(tempPoint);
 					
@@ -118,7 +124,7 @@ namespace geometry {
 					resultPoints2d.push_back(tempPoint);
 				}
 				else {
-					tempPoint = geometry::Point2D(-vertexArray.at(i).getPosition().y, vertexArray.at(i).getPosition().z);
+					tempPoint = geometry::Point2D(-1 * (vertexArray.at(i).getPosition().y), vertexArray.at(i).getPosition().z);
 					tempPoint.originalPoint = vertexArray.at(i).getPosition();
 					resultPoints2d.push_back(tempPoint);
 				}
@@ -127,7 +133,7 @@ namespace geometry {
 		else if (type == 2) {
 			for (int i = 0; i < vertexArray.size(); i++) {
 				if (_normal.y > 0) {
-					tempPoint = geometry::Point2D(-vertexArray.at(i).getPosition().x, vertexArray.at(i).getPosition().z);
+					tempPoint = geometry::Point2D(-1 * (vertexArray.at(i).getPosition().x), vertexArray.at(i).getPosition().z);
 					tempPoint.originalPoint = vertexArray.at(i).getPosition();
 					resultPoints2d.push_back(tempPoint);
 				}

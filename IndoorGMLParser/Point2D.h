@@ -8,13 +8,11 @@ using namespace std;
 namespace geometry {
 	class Point2D {
 	public:
-		union {
-			double xy[2];
-			double rgb[3];
-			indoorgml::Point3D originalPoint;
-			struct { double x, y; };
-			struct { double r, g, b; };
-		};
+		double x;
+		double y;
+		double rgb[3];
+		indoorgml::Point3D originalPoint;
+		struct { double r, g, b; };
 		Point2D(double xp, double yp);
 		Point2D();
 		Point2D(double vec[]);
@@ -43,8 +41,8 @@ namespace geometry {
 		inline bool operator==(Point2D rhs);
 		inline bool operator!=(const Point2D& rhs) const;
 
-		inline operator double*() { return xy; }
-		inline operator const double*() const { return xy; }
+		//inline operator double*() { return xy; }
+		//inline operator const double*() const { return xy; }
 
 		void unitary();
 		double distTo(Point2D target);

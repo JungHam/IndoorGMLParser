@@ -87,9 +87,6 @@
     <ClInclude Include="polygon.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="tessellator.h">
-      <Filter>Header Files\tessellate</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -138,9 +135,6 @@
       <Filter>Source Files\tessellate</Filter>
     </ClCompile>
     <ClCompile Include="Vertex.cpp">
-      <Filter>Source Files\tessellate</Filter>
-    </ClCompile>
-    <ClCompile Include="tessellator.cpp">
       <Filter>Source Files\tessellate</Filter>
     </ClCompile>
     <ClCompile Include="polygon.cpp">

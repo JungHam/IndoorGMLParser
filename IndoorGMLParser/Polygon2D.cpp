@@ -75,10 +75,12 @@ namespace geometry {
 		Point2D curr = m_vertices.at(index);
 		int vertexSize = m_vertices.size();
 		int nextIndex = (index + 1)%vertexSize;
+		if (nextIndex == vertexSize)
+			nextIndex = 0;
 		Point2D next = m_vertices.at(nextIndex);
 		
 		//그 segment에서 getVector를 한다.
-		Point2D result(curr.x - next.x, curr.y - next.y);
+		Point2D result(next.x - curr.x, next.y - curr.y);
 
 		return result;
 
@@ -351,8 +353,8 @@ namespace geometry {
 		vector<Polygon2D>result;
 		if (concaveVerticesIndices.size() == 0) {
 			Polygon2D convexPolygon;
-			//convexPolygon.setExterior(this->getExterior());
-			//result.push_back(convexPolygon);
+			convexPolygon.setVertices(getVertices());
+			result.push_back(convexPolygon);
 			 
 			
 			return result;

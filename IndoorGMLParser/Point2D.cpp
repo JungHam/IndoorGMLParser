@@ -11,10 +11,7 @@ namespace geometry {
 		this->y = y;
 
 	}
-	Point2D::Point2D(double vec[])
-	{
-		memcpy(xy, vec, 2 * sizeof(double));
-	}
+
 
 	double Point2D::length() const
 	{
