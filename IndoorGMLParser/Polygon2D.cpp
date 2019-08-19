@@ -279,7 +279,7 @@ namespace geometry {
 
 			Point2D intersect(intersectX, intersectY);
 			//check the candidate is real intersection point
-			if (isthePointIntersectWithSegment(seg1P1, seg1P2, intersect) || isthePointIntersectWithSegment(seg2P1, seg2P2, intersect)) {
+			if (isthePointIntersectWithSegment(seg1P1, seg1P2, intersect) && isthePointIntersectWithSegment(seg2P1, seg2P2, intersect)) {
 				return true;
 			}
 
@@ -377,8 +377,10 @@ namespace geometry {
 
 				int prevIndex = index - 1;
 				if (prevIndex < 0)
-					prevIndex = resultSortedPointsIdxArray.size() - 1;
-				int nextIndex = (index + 1) % resultSortedPointsIdxArray.size();
+					prevIndex = m_vertices.size() -1 ;
+				int nextIndex = (index + 1);
+				if (nextIndex == m_vertices.size())
+					nextIndex = 0;
 				
 				if (index2 == prevIndex || index2 == nextIndex) {
 					count2++;
